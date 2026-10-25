@@ -1,6 +1,6 @@
 <!doctype html><html lang="zh-Hant"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#142c37"><title>DAIRY 24HR P0.5.2｜榨乳室操作修正</title>
+<meta name="theme-color" content="#142c37"><title>DAIRY 24HR P0.5.3｜榨乳室操作修正</title>
 <style>
 :root{font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#f7f9f2}
 *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#152e37}
@@ -63,7 +63,7 @@ button:focus-visible{outline:3px solid #ffd36e;outline-offset:2px}
 html,body{overscroll-behavior:none}
 </style></head><body>
 <canvas id="view" aria-label="可自由走動及旋轉鏡頭的 3D 榨乳室"></canvas><div id="shade"></div>
-<div id="hud"><div class="header"><div class="logo">🐄 DAIRY <em>24HR</em></div><div class="subtitle">P0.5.2 · 榨乳室操作修正版｜Three.js</div></div><div class="header clock">05:10 <small>晨間榨乳 · 23°C</small></div></div>
+<div id="hud"><div class="header"><div class="logo">🐄 DAIRY <em>24HR</em></div><div class="subtitle">P0.5.3 · 榨乳室操作修正版｜Three.js</div></div><div class="header clock">05:10 <small>晨間榨乳 · 23°C</small></div></div>
 <div id="instruction"><h3>🌤 今天先跟美玲姐做早場</h3><p>四處走走，看看現場。靠近員工、乳牛或設備就能直接互動，不用一直回答選擇題。</p></div>
 <div id="smallmenu"><button id="turnL" title="鏡頭向左旋轉">↶</button><button id="turnR" title="鏡頭向右旋轉">↷</button><button id="resetCam" title="鏡頭回正">⌂</button><button id="debugBtn" title="查看位置診斷">🔎</button><button id="zoomIn" title="拉近鏡頭">＋</button><button id="zoomOut" title="拉遠鏡頭">－</button></div>
 <div id="prompt"></div><div id="toast"></div><pre id="debugMove" hidden></pre>
@@ -74,7 +74,7 @@ html,body{overscroll-behavior:none}
 </div><div id="tips">WASD／方向鍵：連續移動　E：互動<br>拖曳畫面：旋轉視角　滑鼠滾輪：縮放<br>點地面：走過去　手機可長按方向鍵</div></div>
 <button id="act" disabled>靠近再互動</button><div id="minibar">先驗收：看得清楚 · 走得順 · 鏡頭穩定</div>
 <div id="dialog"><div class="speaker" id="who"></div><p id="line"></p><div class="tools" id="dialogActions"></div></div>
-<div id="start"><div class="intro"><div class="tag">可玩技術切片 · P0.5.2</div><h1>早場，<span>開始了。</span></h1><p>你剛走進榨乳室，裡頭機器嗡嗡作響。美玲姐正忙著帶第一排牛進來。</p><ul><li>走進去看看榨乳室與荷斯登牛</li><li>鏡頭可以水平轉一整圈，會跟著你走</li><li>跟美玲姐聊聊，或檢查牛隻與設備</li></ul><button id="begin">穿上雨鞋，開始走走 →</button><p style="color:#56706b;font-size:11px;margin:12px 0 0">先驗收 3D 場景；P0.4 原有劇情完全保留、不覆蓋。</p></div></div>
+<div id="start"><div class="intro"><div class="tag">可玩技術切片 · P0.5.3</div><h1>早場，<span>開始了。</span></h1><p>你剛走進榨乳室，裡頭機器嗡嗡作響。美玲姐正忙著帶第一排牛進來。</p><ul><li>走進去看看榨乳室與荷斯登牛</li><li>鏡頭可以水平轉一整圈，會跟著你走</li><li>跟美玲姐聊聊，或檢查牛隻與設備</li></ul><button id="begin">穿上雨鞋，開始走走 →</button><p style="color:#56706b;font-size:11px;margin:12px 0 0">先驗收 3D 場景；P0.4 原有劇情完全保留、不覆蓋。</p></div></div>
 <div id="err"><div><h2>此裝置無法啟動 3D 場景</h2><p>需要支援 WebGL 的瀏覽器與網路連線載入 Three.js。可先以 Chrome／Edge 開啟，或返回 <a href="../../">P0.4 遊戲</a>。</p></div></div>
-<script type="module" src="./scene.js?v=p052"></script>
+<script type="module" src="./scene.js?v=p053"></script>
 </body></html>
