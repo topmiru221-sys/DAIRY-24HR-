@@ -12,8 +12,9 @@ const canvas=$('view');
 let renderer;
 try{renderer=new THREE.WebGLRenderer({canvas,antialias:!mobile,powerPreference:'high-performance'})}
 catch(e){$('err').style.display='grid';throw e}
-renderer.setPixelRatio(Math.min(devicePixelRatio||1,mobile?1.45:1.85));
-renderer.shadowMap.enabled=true;
+// P0.5.1 mobile GPU stability
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,mobile?1.15:1.85));
+renderer.shadowMap.enabled=!mobile;
 renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
@@ -22,6 +23,8 @@ const scene=new THREE.Scene();
 scene.background=new THREE.Color('#b5d5da');
 scene.fog=new THREE.Fog('#b5d5da',31,78);
 const camera=new THREE.PerspectiveCamera(mobile?51:43,1,.15,180);
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();console.warn('3D context lost');$('err').style.display='grid';$('err').querySelector('h2').textContent='3D 畫面暫時中斷';$('err').querySelector('p').textContent='可能是手機繪圖資源不足；請重新整理後再試，如仍發生可回報手機型號。';});
+canvas.addEventListener('webglcontextrestored',()=>{$('err').style.display='none';resize()});
 const hemi=new THREE.HemisphereLight(0xf1faff,0x698577,2.25);scene.add(hemi);
 const sun=new THREE.DirectionalLight(0xffe7c4,2.5);
 sun.position.set(-10,19,9);sun.castShadow=true;
@@ -96,6 +99,7 @@ floorT.wrapS=floorT.wrapT=THREE.RepeatWrapping;floorT.repeat.set(6,9);
 floorT.anisotropy=Math.min(renderer.capabilities.getMaxAnisotropy(),8);
 const tileFloor=new THREE.Mesh(new THREE.PlaneGeometry(20,26),new THREE.MeshStandardMaterial({map:floorT,roughness:.92}));
 tileFloor.rotation.x=-Math.PI/2;tileFloor.position.y=.027;tileFloor.receiveShadow=true;farm.add(tileFloor);
+const outerGround=new THREE.Mesh(new THREE.PlaneGeometry(120,120),M('#93b18a'));outerGround.rotation.x=-Math.PI/2;outerGround.position.y=-.39;outerGround.receiveShadow=false;scene.add(outerGround);
 box(farm,0,-.18,0,20,.36,26,M('#939f9d'),false);
 // A realistic open-sided double-row milking parlor: two raised cow platforms and a central lower operators' pit.
 for(const side of [-1,1]){
@@ -353,13 +357,20 @@ addEventListener('keydown',e=>{
  if(e.code==='Escape')closeDialog()
 });
 addEventListener('keyup',e=>{const d=dirFromCode(e.code);if(d){e.preventDefault();keys[d]=false}});
-addEventListener('blur',()=>{Object.keys(keys).forEach(k=>keys[k]=false)});
+function releaseKeys(){Object.keys(keys).forEach(k=>keys[k]=false);document.querySelectorAll('#pad button.active').forEach(b=>b.classList.remove('active'))}
+addEventListener('blur',releaseKeys);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)releaseKeys()});
+const padPointers=new Map();
 for(const b of document.querySelectorAll('#pad button[data-k]')){
  const d=b.dataset.k;if(d==='interact')continue;
- b.addEventListener('pointerdown',e=>{e.preventDefault();b.setPointerCapture(e.pointerId);keys[d]=true;b.classList.add('active')});
- for(const evt of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(evt,()=>{keys[d]=false;b.classList.remove('active')})
+ const stop=e=>{if(e && padPointers.get(e.pointerId)!==d)return;if(e)padPointers.delete(e.pointerId);keys[d]=false;b.classList.remove('active')};
+ b.addEventListener('pointerdown',e=>{if(!started||dialogOpen)return;e.preventDefault();padPointers.set(e.pointerId,d);keys[d]=true;b.classList.add('active');try{b.setPointerCapture(e.pointerId)}catch(_){}});
+ for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,stop);
+ b.addEventListener('contextmenu',e=>e.preventDefault());
 }
+for(const ev of ['pointerup','pointercancel'])document.addEventListener(ev,e=>{const d=padPointers.get(e.pointerId);if(d){padPointers.delete(e.pointerId);keys[d]=false;document.querySelector('#pad button[data-k="'+d+'"]')?.classList.remove('active')}});
 const orbit={yaw:.72,pitch:.72,dist:mobile?11.2:13.5},target=new THREE.Vector3(),eye=new THREE.Vector3(),smoothEye=new THREE.Vector3(),vel=new THREE.Vector2();
+$('resetCam').onclick=()=>{orbit.yaw=.72;orbit.pitch=.72;orbit.dist=mobile?11.2:13.5;targetPoint=null;vel.set(0,0);releaseKeys();sayToast('鏡頭已回正')};
 let targetPoint=null,holdMap=new Map(),dragging=false,down=null,pinchDistance=0,time=0;
 function resize(){
  const w=canvas.clientWidth,h=canvas.clientHeight;
@@ -385,7 +396,7 @@ canvas.addEventListener('pointermove',e=>{
  const dx=e.clientX-p.x,dy=e.clientY-p.y;p.x=e.clientX;p.y=e.clientY;
  if(holdMap.size===1){
   if(down&&Math.hypot(e.clientX-down.x,e.clientY-down.y)>7)dragging=true;
-  if(dragging){orbit.yaw-=dx*.009;orbit.pitch=clamp(orbit.pitch+dy*.005,.31,1.18)}
+  if(dragging){orbit.yaw-=dx*.009;orbit.pitch=clamp(orbit.pitch+dy*.005,.48,1.18)}
  }else if(holdMap.size===2){
   const a=[...holdMap.values()],distance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);
   if(pinchDistance)orbit.dist=clamp(orbit.dist*pinchDistance/distance,6.7,19);
@@ -449,7 +460,10 @@ const clock=new THREE.Clock();
 function tick(){
  const dt=Math.min(clock.getDelta(),.055);time+=dt;
  if(started&&!dialogOpen)playerMove(dt);
- const t=new THREE.Vector3(player.root.position.x,1.28,player.root.position.z-1.1);
+ if(!Number.isFinite(player.root.position.x)||!Number.isFinite(player.root.position.z)){
+   player.root.position.set(0,0,7.2);vel.set(0,0);targetPoint=null;releaseKeys()
+ }
+ const t=new THREE.Vector3(clamp(player.root.position.x,-1.65,1.65),1.42,clamp(player.root.position.z-1.1,-6.2,5.8));
  target.lerp(t,1-Math.exp(-dt*7));
  const hz=Math.cos(orbit.pitch)*orbit.dist;
  eye.set(target.x+Math.sin(orbit.yaw)*hz,target.y+Math.sin(orbit.pitch)*orbit.dist,target.z+Math.cos(orbit.yaw)*hz);
