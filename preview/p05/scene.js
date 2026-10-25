@@ -1,4 +1,5 @@
-// DAIRY 24HR P0.5 — independent Three.js milking-parlor prototype.
+// DAIRY 24HR P0.5.3 — corrected mobile D-pad world direction.
+import {directionVelocity,safeTimeStep} from './controls.mjs';
 // Original low-poly scene; does not depend on Fab24hr source or DairyLife 360.
 const $=id=>document.getElementById(id);
 const mobile=matchMedia('(max-width:700px)').matches;
@@ -430,24 +431,27 @@ function ptrEnd(e){
 canvas.addEventListener('pointerup',ptrEnd);canvas.addEventListener('pointercancel',ptrEnd);
 canvas.addEventListener('wheel',e=>{e.preventDefault();orbit.dist=clamp(orbit.dist*(1+Math.sign(e.deltaY)*.075),6.7,19)},{passive:false});
 function playerMove(dt){
- let sx=Number(keys.right)-Number(keys.left),sz=Number(keys.down)-Number(keys.up);
- const move=new THREE.Vector2(sx,sz);
- if(move.lengthSq()>0){
-  move.normalize();targetPoint=null;
-  // Horizontal camera-right and camera-forward in world X/Z axes.
-  const vx=move.x*Math.cos(orbit.yaw)+move.y*Math.sin(orbit.y);
-  const vz=-move.x*Math.sin(orbit.y)+move.y*Math.cos(orbit.y);
-  move.set(vx,vz).multiplyScalar(3.2)
+ const pad=directionVelocity(keys,orbit.yaw,3.2);
+ const move=new THREE.Vector2();
+ if(pad){
+  // Shared, unit-tested math: no nonexistent orbit.y field.
+  targetPoint=null;move.set(pad.x,pad.z);
  }else if(targetPoint){
   move.copy(targetPoint).sub(new THREE.Vector2(player.root.position.x,player.root.position.z));
   if(move.length()<.18){targetPoint=null;move.set(0,0)}
   else move.normalize().multiplyScalar(3.0)
  }
- const alpha=1-Math.exp(-dt*13);
+ const step=safeTimeStep(dt);
+ const alpha=1-Math.exp(-step*13);
+ // A broken external value must stop motion; it must never poison position.
+ if(!Number.isFinite(move.x)||!Number.isFinite(move.y)){move.set(0,0);recordMove('速度輸入異常')}
+ if(!Number.isFinite(vel.x)||!Number.isFinite(vel.y))vel.set(0,0);
  vel.lerp(move,alpha);
+ if(!Number.isFinite(vel.x)||!Number.isFinite(vel.y))vel.set(0,0);
  const oldX=player.root.position.x,oldZ=player.root.position.z;
- player.root.position.x=clamp(oldX+vel.x*dt,-1.82,1.82);
- player.root.position.z=clamp(oldZ+vel.y*dt,-9.7,9.75);
+ const nx=oldX+vel.x*step,nz=oldZ+vel.y*step;
+ player.root.position.x=Number.isFinite(nx)?clamp(nx,-1.82,1.82):oldX;
+ player.root.position.z=Number.isFinite(nz)?clamp(nz,-9.7,9.75):oldZ;
  if(Math.abs(oldX-player.root.position.x)<.001)vel.x=0;
  if(Math.abs(oldZ-player.root.position.z)<.001)vel.y=0;
  const moving=vel.length()>.20;
@@ -468,7 +472,7 @@ function playerMove(dt){
 }
 const clock=new THREE.Clock();
 function tick(){
- const dt=Math.min(clock.getDelta(),.055);time+=dt;
+ const dt=safeTimeStep(clock.getDelta());time+=dt;
  if(started&&!dialogOpen)playerMove(dt);
  const p=player.root.position;
  if(!Number.isFinite(p.x)||!Number.isFinite(p.z)){
