@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#142c35"><title>DAIRY 24HR｜像素牧場試玩版 P0.3</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#142c35"><title>DAIRY 24HR｜像素牧場試玩版 P0.4</title>
 <style>
 :root{--ink:#233b42;--paper:#fff9e9;--cream:#f6f0d9;--green:#327b5a;--yellow:#ffcd57;--red:#db624d;--blue:#407eb6;--border:#274d51}*{box-sizing:border-box}body{margin:0;background:#102b32;color:var(--ink);font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;overflow:hidden}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #f6b33e;outline-offset:3px}.game{width:100vw;height:100dvh;min-height:530px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 35%,#426f72,#1d4048 72%)}#world{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;touch-action:none}.vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(11,34,41,.4),transparent 40%,rgba(11,34,41,.1))}.top{position:absolute;top:14px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;gap:10px}.brand{background:#173d43e6;color:white;padding:9px 14px;border:2px solid #a9d7b3;box-shadow:4px 4px 0 #112b32;transform:skew(-2deg)}.brand h1{font-size:clamp(16px,2.4vw,23px);letter-spacing:2px;margin:0;font-weight:950;line-height:1}.brand small{display:block;margin-top:6px;color:#bddad7;font-size:10px;letter-spacing:1px}.clock{background:#fff8e4e9;border:3px solid #2c5458;box-shadow:4px 4px 0 #132b35;padding:7px 12px;display:flex;align-items:center;gap:12px;font-weight:800}.clock strong{font-size:21px;font-variant-numeric:tabular-nums}.clock span{font-size:11px;color:#56727a}.left{position:absolute;top:91px;left:16px;width:284px;display:grid;gap:9px;max-height:calc(100dvh - 175px);overflow:auto;scrollbar-width:thin}.panel{background:#fff8e9ef;border:3px solid #294c4c;border-radius:6px;box-shadow:4px 5px 0 #142f33;overflow:hidden}.panel .hd{background:#2e6155;color:#fff8d8;font-size:12px;font-weight:900;padding:7px 11px;letter-spacing:.8px;display:flex;align-items:center;justify-content:space-between}.panel .inner{padding:10px 12px}.mission{font-size:16px;font-weight:950;line-height:1.35;margin:3px 0 5px}.note{font-size:12px;line-height:1.5;color:#526c70}.where{display:inline-block;margin:5px 0 9px;background:#ffe6a0;color:#63451d;padding:4px 7px;font-size:11px;font-weight:bold;border-radius:3px}.act{display:block;background:#ffd568;border:2px solid #997338;box-shadow:2px 2px 0 #865f2c;color:#483921;padding:8px 10px;text-align:center;font-size:12px;font-weight:900;width:100%;transition:.12s}.act:hover{background:#ffe49b;transform:translateY(-1px)}.act:active{transform:translate(2px,2px);box-shadow:none}.bars{display:grid;gap:8px}.barline{display:grid;grid-template-columns:70px 1fr 28px;align-items:center;gap:5px;font-size:11px;font-weight:900}.track{height:12px;border:2px solid #54746b;background:#c6d0c2;position:relative}.fill{height:100%;background:#71af74;transition:width .4s}.fill.warn{background:#e0ad55}.fill.bad{background:#d96b54}.eventlist{font-size:11px;line-height:1.5;display:grid;gap:7px;max-height:128px;overflow:auto}.eventlist div{border-left:3px solid #e8ac46;padding-left:7px}.right{position:absolute;right:16px;top:93px;width:205px;display:grid;gap:8px}.mapbox{height:120px;overflow:hidden;position:relative;background:#8ab98c}.mapbox canvas{width:100%;height:100%;image-rendering:pixelated}.legend{padding:9px;font-size:11px;line-height:1.7}.legend b{color:#176652}.footer{position:absolute;bottom:13px;left:50%;transform:translateX(-50%);background:#123741df;color:#f5f5e8;border:1px solid #7ba49b;padding:7px 13px;border-radius:20px;font-size:11px;white-space:nowrap;pointer-events:none}.controlbar{position:absolute;bottom:13px;right:16px;display:flex;gap:7px}.pill{background:#fff7deef;color:#254448;border:2px solid #24484d;padding:8px 12px;font-size:12px;font-weight:900;box-shadow:3px 3px 0 #173039;border-radius:4px}.pill:hover{background:white}.dpad{display:none;position:absolute;bottom:21px;left:15px;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(3,44px);gap:3px;opacity:.92}.dpad button{border:2px solid #214348;background:#fff4dcdd;border-radius:8px;font-weight:900;font-size:19px;color:#244e56;touch-action:none}.dpad button[data-dir='w']{grid-column:2;grid-row:1}.dpad button[data-dir='a']{grid-column:1;grid-row:2}.dpad button[data-dir='s']{grid-column:2;grid-row:3}.dpad button[data-dir='d']{grid-column:3;grid-row:2}.dpad button[data-dir='e']{grid-column:2;grid-row:2;background:#ffd66c}.scrim{position:absolute;inset:0;background:rgba(10,28,35,.64);display:flex;align-items:center;justify-content:center;z-index:10;padding:15px}.hidden{display:none!important}.dialog{width:min(590px,100%);background:#fff8e8;border:4px solid #26474b;box-shadow:10px 10px 0 #0c222b;border-radius:5px;max-height:90dvh;overflow:auto}.dialog .dh{padding:11px 16px;background:#2b6357;display:flex;justify-content:space-between;align-items:center;color:#fff8e5;gap:12px}.dialog .dh span{font-size:13px;font-weight:900;letter-spacing:.5px}.dialog .dh small{font-size:10px;color:#c2e4c8}.dialog .db{padding:18px 21px}.dialog h2{font-size:23px;line-height:1.3;margin:0 0 10px;font-weight:950;color:#1b3f45}.dialog p{line-height:1.75;font-size:14px;margin:8px 0 13px}.speaker{border-left:5px solid #efb654;background:#fff0c9;padding:9px 12px;margin:10px 0 15px;line-height:1.65;font-size:14px}.choice{display:flex;align-items:flex-start;gap:9px;width:100%;text-align:left;background:#fffdf7;color:#214249;border:2px solid #80a49a;padding:11px 13px;margin:8px 0;border-radius:4px;font-weight:700;font-size:13px;line-height:1.6}.choice:hover{background:#dbf3dc;border-color:#387963}.choice:active{transform:translate(2px,2px)}.choice b{background:#e7b750;color:#fff;padding:1px 7px;border-radius:2px;font-size:12px}.reply{padding:13px;background:#e6efe1;border-left:5px solid #528960;font-size:13px;line-height:1.6;margin-top:12px}.reply.bad{background:#ffede1;border-color:#d77c54}.dialog .db .act{margin-top:15px}.fine{font-size:11px!important;color:#74817f;margin:10px 0 0!important}.banner{font-size:11px;color:#3d746c;background:#dff5db;padding:5px 7px;display:inline-block;border-radius:3px;margin-bottom:12px;font-weight:bold}.startmark{text-align:center;font-size:36px;margin:5px 0 7px}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.statgrid div{background:#e3efdf;padding:10px;border:1px solid #afc8b0}.statgrid b{display:block;color:#234c4c}.statgrid span{font-size:21px;font-weight:900}.result-title{font-size:28px!important}.small-tools{font-size:11px;color:#6c7b76;border-top:1px solid #e4dfc9;margin-top:13px;padding-top:12px}.subtle{color:#5d746b;font-size:11px}.step-done{background:#43815c!important;color:white;border-color:#1e624c!important}.mobile-actions{display:none}.toast{position:absolute;top:61px;left:50%;transform:translateX(-50%);background:#1d4c55ed;color:#fff8dc;padding:10px 17px;font-size:12px;border:2px solid #87b0a1;z-index:4;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis;opacity:0;transition:opacity .3s}.toast.show{opacity:1}
 @media(max-width:1000px){.right{display:none}.left{width:243px}.clock strong{font-size:17px}.left .panel:last-child{display:none}}
@@ -66,9 +66,21 @@
  .dialog{max-height:77dvh}.dialog .db{padding:12px}
 }
 @media (max-width:390px){.clock span{display:none}.brand small{letter-spacing:0}.camera-ui button{width:34px;min-width:34px}}
+
+/* P0.4 – WebGL world: no checkerboard grid, crisp nearby characters and equipment. */
+#world{image-rendering:auto;display:block;outline:none;background:#7fabae}
+.game{background:linear-gradient(#7ca7b1,#a5beac)}
+.camera-ui{top:92px}
+.quick{box-shadow:0 10px 30px #05151b80}
+@media(max-width:700px){.camera-ui{top:75px}.interact-btn{bottom:90px}}
+#tags{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+.worldtag{position:absolute;transform:translate(-50%,-100%);white-space:nowrap;background:#163e43ed;border:1px solid #9db8af;border-radius:5px;color:white;padding:4px 8px;font-size:12px;box-shadow:0 2px 4px #122c3655;font-weight:750}
+.worldtag.primary{background:#f3bf3d;color:#273836;border:2px solid #76581f;font-weight:900}
+.worldtag.primary::before{content:'!';display:inline-grid;place-items:center;border-radius:50%;width:20px;height:20px;background:#382f1d;color:#ffdb57;margin-right:5px}
+.webgl-unavailable{position:absolute;inset:0;z-index:12;background:#122b32;color:white;display:grid;place-items:center;padding:30px;text-align:center;font-size:17px}
 </style>
 </head><body>
-<div class="game" id="game"><canvas id="world" aria-label="可探索的 3D 像素乳牛牧場"></canvas><div class="vignette"></div><div class="camera-ui" aria-label="鏡頭控制"><button id="cam-left" title="視角往左轉">↶</button><button id="cam-right" title="視角往右轉">↷</button><button id="cam-plus" title="靠近">＋</button><button id="cam-minus" title="拉遠">－</button></div><div class="top"><div class="brand"><h1>🐄 DAIRY 24HR</h1><small>牧場菜鳥的崩潰值班日 ｜ 可玩原型 P0.3</small></div><div class="clock"><strong id="clock">04:00</strong><span id="weather">☀ 晴時多雲<br>DAY 01</span></div></div>
+<div class="game" id="game"><canvas id="world" aria-label="可探索的 3D 像素乳牛牧場"></canvas><div id="tags"></div><div class="vignette"></div><div class="camera-ui" aria-label="鏡頭控制"><button id="cam-left" title="視角往左轉">↶</button><button id="cam-right" title="視角往右轉">↷</button><button id="cam-plus" title="靠近">＋</button><button id="cam-minus" title="拉遠">－</button></div><div class="top"><div class="brand"><h1>🐄 DAIRY 24HR</h1><small>牧場菜鳥的崩潰值班日 ｜ WebGL 試玩 P0.4</small></div><div class="clock"><strong id="clock">04:00</strong><span id="weather">☀ 晴時多雲<br>DAY 01</span></div></div>
 <div class="left"><div class="panel"><div class="hd">📋 今天先做什麼 <span id="progress">0 / 8</span></div><div class="inner"><div class="mission" id="mission">上班先跟大家打個招呼</div><div class="note" id="mission-note">到辦公室跟場長聊聊。</div><span class="where" id="mission-where">📍 辦公室</span><button class="act" id="auto">📍 帶我過去</button></div></div><div class="panel"><div class="hd">📊 牧場狀態</div><div class="inner"><div class="bars" id="bars"></div></div></div><div class="panel"><div class="hd">🗒 今日事件日誌</div><div class="inner eventlist" id="log"></div></div></div>
 <div class="right"><div class="panel"><div class="hd">🧭 牧場區域</div><div class="legend">🏠 辦公室／交班區<br>🥛 擠乳室與儲乳槽<br>🐮 Fresh／犢牛區<br>🌽 TMR 飼料作業區<br>🌡 通風與降溫設備<br><b>黃色 ! 是目前任務</b></div></div><div class="panel"><div class="hd">🎮 操作說明</div><div class="legend">W A S D ／方向鍵移動<br>空白鍵／E：互動<br>滑鼠點擊場景：移動／互動<br>手機用左下方方向鍵<br>不急著猜答案，自己看現場</div></div></div>
 <div class="footer">WASD / 方向鍵移動 · 靠近黃色 ! 按 E · 也可直接點擊任務標記</div><div class="dpad" id="dpad"><button data-dir="w">▲</button><button data-dir="a">◀</button><button data-dir="e">●</button><button data-dir="d">▶</button><button data-dir="s">▼</button></div><div class="controlbar"><button class="pill" id="records">🗒 日誌</button><button class="pill" id="restart">↻ 新的一局</button></div><button class="interact-btn" id="interact-btn">✦ 聊聊 / 看看</button><div class="quick hidden" id="quick" aria-label="現場互動"><div class="quick-head"><strong id="quick-name">牧場</strong><button id="quick-x" aria-label="關閉互動">✕</button></div><p id="quick-line"></p><div id="quick-actions" class="quick-actions"></div></div><div id="toast" class="toast"></div>
@@ -76,7 +88,7 @@
 </div>
 <script>
 (()=>{'use strict';
-const $=id=>document.getElementById(id); const canvas=$('world'),ctx=canvas.getContext('2d'); const W=23,H=18; let vw=0,vh=0,dpr=1,sc=1,ox=0,oy=0,tw=55,th=28;const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;const roll=()=>Math.random();
+const $=id=>document.getElementById(id); const canvas=$('world'),ctx=null; const W=23,H=18; let vw=0,vh=0,dpr=1,sc=1,ox=0,oy=0,tw=55,th=28;const clamp=(x,a,b)=>Math.min(b,Math.max(a,x));const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;const roll=()=>Math.random();
 const missions=[
 {title:'上班先跟大家打個招呼',hint:'到辦公室走走，看看今天怎麼分工。',place:'辦公室',node:'manager',time:'04:00',scene:'早班｜先把人認清楚',domain:'team',intro:'辦公室燈剛亮。阿哲把雨衣掛起來，桌上的早餐還有一半。',say:'陳場長：「來了喔？桌上那本翻一下就好。阿哲等一下要下班了，你有事趁現在問他。」',checks:['跟阿哲閒聊','翻翻交班本','看看今天的工作板'],cases:[
 {risk:0,signal:1,lines:['阿哲：「昨晚還好啦，就被蚊子吵醒兩次。」','交班本有牛號、設備紀錄和簽名，沒有特別突出的待辦。','班表寫著美玲姐帶早場，阿豪準備今天的飼料。']},
@@ -120,15 +132,15 @@ const colors={grass:['#87b886','#8bbd89','#82b486','#91be89'],road:'#d8d3af',pav
 function sceneTime(index){s.clock=missions[index]?.time||'18:30'; $('clock').textContent=s.clock}
 function drawCases(){let a=Array(missions.length).fill(0),slots=[0,1,2,3,4,5,6]; for(let i=slots.length-1;i>0;i--){let j=rnd(0,i);[slots[i],slots[j]]=[slots[j],slots[i]];}let number=rnd(0,3);for(let i=0;i<number;i++)a[slots[i]]=rnd(1,2);a[7]=rnd(0,1);return a}
 function ensureCases(){if(!Array.isArray(s.cases)||s.cases.length!==missions.length)s.cases=drawCases();if(!s.seen)s.seen={};if(!s.entries)s.entries=[];if(!s.notes)s.notes={};if(!s.sequenceDone)s.sequenceDone={};if(!s.sideCases)s.sideCases={}}
-function save(){try{localStorage.setItem('dairy24hr_p03',JSON.stringify({stage:s.stage,stats:s.stats,x:s.x,y:s.y,log:s.log,side:s.side,doneSide:s.doneSide,cases:s.cases,sideCases:s.sideCases,seen:s.seen,entries:s.entries,notes:s.notes,sequenceDone:s.sequenceDone,bad:s.bad,correct:s.correct,over:s.over}))}catch(e){}}
-function load(){try{const d=JSON.parse(localStorage.getItem('dairy24hr_p03')||'null');if(d&&Number.isInteger(d.stage)&&d.stage>=0&&d.stage<=8){Object.assign(s,d);ensureCases();s.playing=true;sceneTime(Math.min(s.stage,7));return true}}catch(e){}return false}
+function save(){try{localStorage.setItem('dairy24hr_p04',JSON.stringify({stage:s.stage,stats:s.stats,x:s.x,y:s.y,log:s.log,side:s.side,doneSide:s.doneSide,cases:s.cases,sideCases:s.sideCases,seen:s.seen,entries:s.entries,notes:s.notes,sequenceDone:s.sequenceDone,bad:s.bad,correct:s.correct,over:s.over}))}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem('dairy24hr_p04')||'null');if(d&&Number.isInteger(d.stage)&&d.stage>=0&&d.stage<=8){Object.assign(s,d);ensureCases();s.playing=true;sceneTime(Math.min(s.stage,7));return true}}catch(e){}return false}
 function metrics(){return [['🥛 乳質','milk'],['🐄 牛群','cow'],['🤝 團隊','team'],['⚡ 體力','energy']].map(([label,key])=>`<div class="barline"><span>${label}</span><div class="track"><div class="fill ${s.stats[key]<35?'bad':s.stats[key]<55?'warn':''}" style="width:${s.stats[key]}%"></div></div><span>${s.stats[key]}</span></div>`).join('')}
 function updateUI(){const task=missions[s.stage];$('progress').textContent=Math.min(s.stage,8)+' / 8';$('mission').textContent=s.over?'今天先到這裡':task.title;$('mission-note').textContent=s.over?'看看今天的日誌，或重新玩一次。':task.hint;$('mission-where').textContent=s.over?'✅ 今天已交班':'📍 '+task.place;$('auto').textContent=s.over?'📊 看今天的紀錄':'📍 帶我過去';$('bars').innerHTML=metrics();$('log').innerHTML=s.log.slice(-7).reverse().map(x=>`<div>${escapeHTML(x)}</div>`).join('')}
 function escapeHTML(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function setDialog(name,title,desc,say,buttons,time,extra=''){if(typeof hideQuick==='function')hideQuick();$('overlay').classList.remove('hidden');$('speaker').textContent=name;$('dtime').textContent=time;$('dialog-body').innerHTML=`${extra}<h2>${title}</h2><p>${desc}</p>${say?`<div class="speaker">${say}</div>`:''}<div id="choices"></div>`;const el=$('choices');buttons.forEach((b,i)=>{const btn=document.createElement('button');btn.className='choice';btn.innerHTML=`<b>${i+1}</b><span>${escapeHTML(b.label)}</span>`;btn.onclick=b.click;el.append(btn)})}
 function closeDialog(){$('overlay').classList.add('hidden')}
 function toast(t){const el=$('toast');el.textContent=t;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2300)}
-function startDialog(){setDialog('DAIRY 24HR','上班囉','今天跟著大家在場裡跑一圈。想跟誰聊就過去，看到什麼就看一下；不一定每天都有大事。','阿哲：「欸你來啦。先去找場長，我回去補眠。」',[{label:'好，開工',click:()=>{s.playing=true;ensureCases();closeDialog();updateUI();save();toast('拖動畫面可轉鏡頭；人走到哪，鏡頭就跟到哪')}}],s.clock,`<div class="banner">P0.3｜鏡頭跟隨／360° 視角／少點幾次才是真上班</div>`)}
+function startDialog(){setDialog('DAIRY 24HR','上班囉','今天跟著大家在場裡跑一圈。想跟誰聊就過去，看到什麼就看一下；不一定每天都有大事。','阿哲：「欸你來啦。先去找場長，我回去補眠。」',[{label:'好，開工',click:()=>{s.playing=true;ensureCases();closeDialog();updateUI();save();toast('按住方向鍵會持續行走，拖動畫面可旋轉鏡頭')}}],s.clock,`<div class="banner">P0.4｜真正 3D、連續走路、清晰可辨的牧場模型</div>`)}
 function apply(e){for(let k in e)s.stats[k]=clamp(s.stats[k]+e[k],0,100)}
 function keyOf(m,side){return side?'side:'+m.id:'main:'+s.stage}
 function caseOf(m,side){const ix=side?(s.sideCases[m.id]??0):(s.cases[s.stage]??0);return m.cases[Math.min(ix,m.cases.length-1)]||m.cases[0]}
@@ -157,171 +169,251 @@ function advance(){s.stage++;sceneTime(Math.min(s.stage,7));if(s.stage===3||s.st
 function sideTrigger(side){investigate(side,true)}
 function verdict(){const n=s.entries.filter(e=>e.status==='有線索待確認').length;const without=s.entries.filter(e=>e.status==='未留下紀錄'||e.status==='尚未查看現場').length;if(without>=3)return ['紀錄還有幾個洞','阿伯：「不用什麼都會，但你跑過哪裡、看過什麼，要有人接得下去啊。」'];if(n>=1)return ['有幾件事情留著追','阿伯：「好啦，有些事情今天沒查完很正常。你有寫清楚，明天才有人接得上。」'];return ['平平穩穩的一天','美玲姐：「誰說沒出事就不好玩？平常就是這樣啦，事情都顧好才厲害。」']}
 function finish(){s.over=true;const [title,desc]=verdict(),notes=s.entries.filter(e=>e.note).slice(-4).map(e=>`<div>• ${escapeHTML(e.name)}：${escapeHTML(e.note)}</div>`).join(''),pending=s.entries.filter(e=>e.status==='有線索待確認').length;const metric=Object.entries(s.stats).map(([k,v])=>`<div><b>${{milk:'乳品觀察',cow:'牛群巡視',team:'交班紀錄',energy:'體力'}[k]}</b><span>${v}</span></div>`).join('');setDialog('今日收工','雨鞋可以脫了','今天就先這樣。有些事得明天接著看。<br><br><b>'+title+'</b><br>'+desc,'阿伯：「好啦，先去吃飯。明天還要早起咧。」',[{label:'換一天再玩（人和現場可能不一樣）',click:()=>{reset();startDialog()}},{label:'回牧場走走',click:()=>{closeDialog();updateUI()}}],'18:30',`<div class="statgrid">${metric}</div><div class="small-tools">日常工作：8 / 8　｜　順路事件：${s.doneSide.length}　｜　待確認：${pending}<br>這是日間內容試玩版，尚未涵蓋整夜 24 小時。</div>${notes?'<div class="fieldbox"><b>你自己寫的幾筆：</b>'+notes+'</div>':''}`);save()}
-function reset(){hideQuick();chatRng={};localStorage.removeItem('dairy24hr_p03');s.stage=0;s.stepIndex=0;s.stats={milk:75,cow:75,team:75,energy:75};s.clock='04:00';s.x=6;s.y=6;s.log=['04:00｜來牧場上早班'];s.side=[];s.doneSide=[];s.cases=drawCases();s.sideCases={};s.seen={};s.entries=[];s.notes={};s.sequenceDone={};s.bad=0;s.correct=0;s.decision=null;s.over=false;s.autoPath=[];s.playing=false;sceneTime(0);updateUI()}
+function reset(){hideQuick();chatRng={};localStorage.removeItem('dairy24hr_p04');s.stage=0;s.stepIndex=0;s.stats={milk:75,cow:75,team:75,energy:75};s.clock='04:00';s.x=6;s.y=6;s.log=['04:00｜來牧場上早班'];s.side=[];s.doneSide=[];s.cases=drawCases();s.sideCases={};s.seen={};s.entries=[];s.notes={};s.sequenceDone={};s.bad=0;s.correct=0;s.decision=null;s.over=false;s.autoPath=[];s.playing=false;sceneTime(0);updateUI()}
 function activeNodes(){const nodes=[];if(!s.over){const m=missions[s.stage];nodes.push({...nodeData[m.node],id:m.node,primary:true})}s.side.forEach(v=>nodes.push({...v,label:v.title,id:v.id,style:v.id==='calf'||v.id==='hoof'?'cow':'flag',primary:false}));return nodes}
-function walkable(x,y){return x>=1&&x<W-1&&y>=1&&y<H-1}function walkTo(x,y){x=clamp(Math.round(x),1,W-2);y=clamp(Math.round(y),1,H-2);const q=[[s.x,s.y]],paths=new Map([[s.x+','+s.y,null]]);const dirs=[[0,1],[1,0],[0,-1],[-1,0]];while(q.length){const [a,b]=q.shift();if(a===x&&b===y)break;for(const [dx,dy] of dirs){const nx=a+dx,ny=b+dy,key=nx+','+ny;if(walkable(nx,ny)&&!paths.has(key)){paths.set(key,[a,b]);q.push([nx,ny])}}}let path=[],k=x+','+y;while(paths.get(k)){const [xx,yy]=k.split(',').map(Number);path.push({x:xx,y:yy});k=paths.get(k).join(',')}s.autoPath=path.reverse()}
+function walkable(x,y){return x>=.6&&x<W-.9&&y>=.6&&y<H-.9}function walkTo(x,y){const tx=clamp(x,.8,W-1.4),ty=clamp(y,.8,H-1.4);s.autoPath=[{x:tx,y:ty}];}
 function interact(node){if(!s.playing){startDialog();return}const dist=Math.abs(s.x-node.x)+Math.abs(s.y-node.y);if(dist>3){walkTo(node.x,node.y);toast('正在前往 '+node.label+'，靠近後再按互動');return}if(!node.primary){const side=s.side.find(x=>x.id===node.id);if(side){sideTrigger(side);return}}entryMission()}
 function closest(){const candidates=activeNodes().filter(n=>Math.abs(n.x-s.x)+Math.abs(n.y-s.y)<=3);candidates.sort((a,b)=>(Math.abs(a.x-s.x)+Math.abs(a.y-s.y))-(Math.abs(b.x-s.x)+Math.abs(b.y-s.y)));if(candidates.length)interact(candidates[0]);else{const n=activeNodes()[0];toast('請靠近黃色任務標記：'+(n?n.label:'任務完成'))}}
-/* P0.3: camera-following, orbitable 3D box geometry drawn without third-party libraries */
-let animation=0,lastFrame=0,angle=Math.PI/4,zoom=1.0,camX=s.x+.5,camY=s.y+.5;
-const elevation=0.83,upSin=Math.sin(elevation),upCos=Math.cos(elevation);
-let cA=Math.cos(angle),sA=Math.sin(angle),unit=72,faces=[],sprites=[];
-function proj(x,y,z=0){const dx=x-camX,dy=y-camY,rx=dx*cA-dy*sA,ry=dx*sA+dy*cA;return {x:ox+rx*unit,y:oy+(ry*upSin-z*upCos)*unit,rank:ry*upCos+z*upSin}}
-function poly(points,color,outline=false){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(let i=1;i<points.length;i++)ctx.lineTo(points[i].x,points[i].y);ctx.closePath();ctx.fillStyle=color;ctx.fill();if(outline){ctx.strokeStyle='rgba(11,36,38,.17)';ctx.lineWidth=Math.max(.5,zoom*.7);ctx.stroke()}}
-function face(coords,fill,edge=false){const p=coords.map(v=>proj(...v));if(p.every(v=>v.x<(-unit*3))||p.every(v=>v.x>vw+unit*3)||p.every(v=>v.y<-unit*4)||p.every(v=>v.y>vh+unit*3))return;faces.push({p,color:fill,rank:p.reduce((a,v)=>a+v.rank,0)/p.length,edge})}
-function solid(x,y,z,w,d,h,top='#c6cdca',fx='#a4b2ad',fy='#93a3a0'){
- const x2=x+w,y2=y+d,z2=z+h;
- if(sA>=0){face([[x2,y,z],[x2,y2,z],[x2,y2,z2],[x2,y,z2]],fx,true)}else{face([[x,y2,z],[x,y,z],[x,y,z2],[x,y2,z2]],fx,true)}
- if(cA>=0){face([[x,y2,z],[x2,y2,z],[x2,y2,z2],[x,y2,z2]],fy,true)}else{face([[x2,y,z],[x,y,z],[x,y,z2],[x2,y,z2]],fy,true)}
- face([[x,y,z2],[x2,y,z2],[x2,y2,z2],[x,y2,z2]],top,true)
+/* P0.4 native WebGL renderer. Static geometry batched; GPU depth-testing prevents painter's-order flashing.
+   Coordinates: x / y are pasture ground, z is height. No third-party runtime dependency. */
+let animation=0,lastFrame=0,angle=Math.PI/4,zoom=1.18,camX=s.x+.5,camY=s.y+.5;
+let unit=70;
+const elev=.91,sinEl=Math.sin(elev),cosEl=Math.cos(elev);
+const gl=canvas.getContext('webgl',{alpha:false,antialias:true,depth:true,premultipliedAlpha:false,preserveDrawingBuffer:false});
+let rendererOK=!!gl,worldBuffer=null,worldCount=0,actorBuffer=null,actorCount=0,staging=[],personYaw=0;
+const tags=$('tags');
+function hexRGB(h){if(Array.isArray(h))return h;const n=parseInt(h.replace('#',''),16);return[((n>>16)&255)/255,((n>>8)&255)/255, (n&255)/255]}
+function rgb(hex,k=1){const v=hexRGB(hex);return v.map(x=>Math.min(x*k,1))}
+function vertex(p,n,col){staging.push(p[0],p[1],p[2],n[0],n[1],n[2],col[0],col[1],col[2]);}
+function quad(a,b,c,d,color,normal){const col=hexRGB(color);vertex(a,normal,col);vertex(b,normal,col);vertex(c,normal,col);vertex(a,normal,col);vertex(c,normal,col);vertex(d,normal,col)}
+function bx(x,y,z,w,d,h,top='#dfdfd3',front=null,side=null){
+ const a=x,b=x+w,c=y,e=y+d,f=z,g=z+h;const clr=front||top,cl2=side||top;
+ quad([a,c,g],[b,c,g],[b,e,g],[a,e,g],top,[0,0,1]);
+ quad([b,c,f],[a,c,f],[a,e,f],[b,e,f],top,[0,0,-1]);
+ quad([a,c,f],[b,c,f],[b,c,g],[a,c,g],clr,[0,-1,0]);
+ quad([b,e,f],[a,e,f],[a,e,g],[b,e,g],side||clr,[0,1,0]);
+ quad([a,e,f],[a,c,f],[a,c,g],[a,e,g],cl2,[-1,0,0]);
+ quad([b,c,f],[b,e,f],[b,e,g],[b,c,g],side||clr,[1,0,0]);
 }
-function mat(x,y,z,w,d,h,color){solid(x,y,z,w,d,h,color,color,color)}
-function sticker(x,y,z,label,main){sprites.push({kind:'label',x,y,z,label,main})}
-function queueCow(x,y,look=1){
- // Four legs, torso, neck, muzzle and simple Holstein pattern; shared low-poly voxel vocabulary.
- for(const xx of [.11,.91])for(const yy of [.14,.58])solid(x+xx,y+yy,0,.17,.17,.51,'#e8e6df','#b7bdbc','#c1c4ba');
- solid(x,y,.46,1.19,.91,.76,'#f2f0e4','#dcded7','#c8d0ca');
- solid(x+.25,y+.01,1.12,.45,.25,.11,'#262b30','#2f323a','#242a30');
- solid(x+.89,y+.53,.77,.28,.38,.34,'#252d31','#1d272b','#1f272a');
- solid(x+.99,y+.20,.74,.17,.28,.34,'#30343b','#282e34','#222b35');
- solid(x+1.0,y+.19,.65,.51,.44,.54,'#f4f0e8','#d4d8d6','#cbd0cc');
- solid(x+1.32,y+.30,.66,.26,.25,.20,'#e7aca2','#cd938b','#c68c84');
- solid(x+1.12,y+.09,1.12,.16,.15,.11,'#eff1e6','#dcd9ce','#dedfda');
- solid(x+1.12,y+.75,1.12,.16,.15,.11,'#eff1e6','#dcd9ce','#dedfda');
- solid(x+1.42,y+.26,.8,.04,.05,.06,'#1b2223','#1b2223','#1b2223');
-}
-function queuePerson(x,y,shirt='#356e99',player=false){
- const bob=player&&s.autoPath.length?.03*Math.sin(animation/110):0;
- solid(x+.21,y+.15,0,.21,.26,.59,'#303c44','#2c343c','#27323d');
- solid(x+.58,y+.15,0,.21,.26,.59,'#303c44','#2c343c','#27323d');
- solid(x+.11,y+.06,.58+bob,.78,.48,.79,shirt,shirt,'#31526a');
- solid(x+.23,y+.10,1.38+bob,.56,.42,.45,'#f0c6a2','#d6aa8b','#bd8f70');
- solid(x+.19,y+.09,1.83+bob,.65,.52,.18,player?'#346fa0':'#6f625e',player?'#234c83':'#514944',player?'#205783':'#453e3c');
- solid(x-.02,y+.16,.62+bob,.16,.24,.68,'#d8aa88','#cca181','#b18b77');
- solid(x+.86,y+.16,.62+bob,.15,.24,.68,'#d8aa88','#cca181','#b18b77');
- if(player)sticker(x+.5,y+.4,2.25,'你',false)
-}
-function queueFan(x,y){
- solid(x,y,0,.28,.28,2.4,'#b6c9c1','#92a49d','#8a9e9a');
- solid(x-.38,y-.17,1.77,1.12,.48,.95,'#dae7dd','#bbc8c4','#b3c7c4');
- solid(x-.18,y+.36,2.05,.7,.05,.38,'#75a2a0','#618f92','#54878a');
-}
-function queueTank(x,y){
- solid(x,y,0,2.3,1.5,1.72,'#eaf0eb','#c9d5d2','#bacdd0');
- solid(x+.28,y-.015,.89,.7,.06,.53,'#244955','#245f67','#21525b');
- solid(x+.4,y+.15,1.78,1.4,1.0,.13,'#e7efed','#b6c4c2','#c2cfcf')
-}
-function queueTractor(x,y){
- solid(x,y,.28,1.5,.75,.65,'#ca483c','#9c3a32','#a94c32');
- solid(x+.05,y+.11,.12,.35,.33,.4,'#273239','#212b31','#262e31');
- solid(x+.99,y+.08,.1,.39,.35,.4,'#273239','#212b31','#262e31');
- solid(x+.5,y+.04,.94,.76,.67,.6,'#8eb2b3','#698e91','#71969b');
-}
-function queueBarn(x,y,w,d){
- // Open plan: no blocking roof; translucent-feeling open stalls and tall posts.
- solid(x,y,0,w,d,.24,'#c9c2a9','#a9a797','#ab9f86');
- for(let xx=x+.1;xx<=x+w-.1;xx+=2.1){solid(xx,y,.24,.13,.15,2.9,'#dfe2d7','#b7bdb6','#a2afa7');solid(xx,y+d-.17,.24,.12,2.9,'#dfe2d7','#afb5ad','#adbbb1')}
- for(let yy=y+.2;yy<y+d-.2;yy+=1.35){solid(x,y+yy,.38,w,.08,.12,'#f0eadb','#cbd0cb','#babfb6')}
- // beams above stalls
- solid(x,y,2.98,w,.18,.16,'#d1d8d1','#aab9b4','#a6aca9')
-}
-function scenery(){
- // ground - individual cubes and strip tiles draw with correct per-face depth
- for(let x=0;x<W;x++)for(let y=0;y<H;y++){
-  const road=((y===6&&x>=2)||(x===12&&y>=2&&y<=16)||(x===3&&y>=3&&y<=16)||(y===13&&x>=3));
-  const paved=(x>=3&&x<=11&&y>=8&&y<=12)||(x>=14&&x<=21&&y>=7&&y<=16)||(x>=7&&x<=12&&y>=2&&y<=5);
-  const type=road?'#c6b99a':paved? ((x+y)%2?'#a4b9ac':'#b5c7b9'):((x*13+y*17)%5===0?'#80b57c':'#92bb80');
-  face([[x,y,0],[x+1,y,0],[x+1,y+1,0],[x,y+1,0]],type,true);
+function plane(x,y,z,w,d,c){quad([x,y,z],[x+w,y,z],[x+w,y+d,z],[x,y+d,z],c,[0,0,1])}
+function tri(a,b,c,color,n=[0,0,1]){const col=hexRGB(color);vertex(a,n,col);vertex(b,n,col);vertex(c,n,col)}
+function cylZ(x,y,z,r,h,color,n=12){for(let i=0;i<n;i++){let a=2*Math.PI*i/n,b=2*Math.PI*(i+1)/n;let p=[x+Math.cos(a)*r,y+Math.sin(a)*r],q=[x+Math.cos(b)*r,y+Math.sin(b)*r];let norm=[Math.cos((a+b)/2),Math.sin((a+b)/2),.1];quad([p[0],p[1],z],[q[0],q[1],z],[q[0],q[1],z+h],[p[0],p[1],z+h],color,norm);tri([x,y,z+h],[p[0],p[1],z+h],[q[0],q[1],z+h],color)}}
+function cylX(x,y,z,len,rad,color,n=14){for(let i=0;i<n;i++){const a=i*2*Math.PI/n,b=(i+1)*2*Math.PI/n;const A=[y+Math.cos(a)*rad,z+Math.sin(a)*rad],B=[y+Math.cos(b)*rad,z+Math.sin(b)*rad];const norm=[0,Math.cos((a+b)/2),Math.sin((a+b)/2)];quad([x,A[0],A[1]],[x+len,A[0],A[1]],[x+len,B[0],B[1]],[x,B[0],B[1]],color,norm);tri([x,y,z],[x,B[0],B[1]],[x,A[0],A[1]],color,[-1,0,0]);tri([x+len,y,z],[x+len,A[0],A[1]],[x+len,B[0],B[1]],color,[1,0,0])}}
+function cylY(x,y,z,dep,rad,color,n=12){for(let i=0;i<n;i++){let a=i*2*Math.PI/n,b=(i+1)*2*Math.PI/n,A=[x+Math.cos(a)*rad,z+Math.sin(a)*rad],B=[x+Math.cos(b)*rad,z+Math.sin(b)*rad],norm=[Math.cos((a+b)/2),0,Math.sin((a+b)/2)];quad([A[0],y,A[1]],[A[0],y+dep,A[1]],[B[0],y+dep,B[1]],[B[0],y,B[1]],color,norm);tri([x,y,z],[A[0],y,A[1]],[B[0],y,B[1]],color,[0,-1,0]);tri([x,y+dep,z],[B[0],y+dep,B[1]],[A[0],y+dep,A[1]],color,[0,1,0])}}
+function beam(ax,ay,az,bx0,by0,bz0,r,c){ // stout short cylinder between arbitrary points, 6 sides
+ const dx=bx0-ax,dy=by0-ay,dz=bz0-az,mag=Math.hypot(dx,dy,dz)||1;const dir=[dx/mag,dy/mag,dz/mag];let up=Math.abs(dir[2])<.90?[0,0,1]:[0,1,0];let u=[dir[1]*up[2]-dir[2]*up[1],dir[2]*up[0]-dir[0]*up[2],dir[0]*up[1]-dir[1]*up[0]];let ul=Math.hypot(...u);u=u.map(x=>x/ul);let v=[dir[1]*u[2]-dir[2]*u[1],dir[2]*u[0]-dir[0]*u[2],dir[0]*u[1]-dir[1]*u[0]];
+ for(let i=0;i<8;i++){let a=2*Math.PI*i/8,b=2*Math.PI*(i+1)/8,off=t=>u.map((e,j)=>e*Math.cos(t)*r+v[j]*Math.sin(t)*r),aa=off(a),bb=off(b);quad([ax+aa[0],ay+aa[1],az+aa[2]],[ax+bb[0],ay+bb[1],az+bb[2]],[bx0+bb[0],by0+bb[1],bz0+bb[2]],[bx0+aa[0],by0+aa[1],bz0+aa[2]],c,aa)}}
+function shadow(x,y,w,d){plane(x,y,.019,w,d,'#6f8275')}
+function cow(x,y,scale=1){ // 3D Holstein with recognizable head, ears, udder, spots, horns and legs
+ // local coordinates in x forward direction, realistic contrast visible from both sides
+ const X=(v)=>x+v*scale,Y=(v)=>y+v*scale,Z=(v)=>v*scale;
+ shadow(X(-.1),Y(-.11),2.3*scale,1.16*scale);
+ for(const xx of [.22,1.30])for(const yy of [.14,.68]){
+  bx(X(xx),Y(yy),Z(.07),.26*scale,.23*scale,.81*scale,'#e6e8e2','#d6d9d1','#bac3c2');
+  bx(X(xx-.015),Y(yy-.02),Z(.04),.29*scale,.28*scale,.16*scale,'#4e5758');
  }
- // loose scenery does not obstruct route to interactable areas
- queueBarn(3,8,8,4);queueBarn(14,7,7,4);queueBarn(14,12,7,4);
- // office with shorter counter, not roof covering the entire camera
- solid(2,2,0,4.8,2.8,.27,'#d7c4a1','#c6a777','#be986f');
- solid(2,2,.25,.25,2.8,1.55,'#d8d4bd','#b2b4a6','#c2b39e');
- solid(2,2,.25,4.8,.25,1.4,'#ded3be','#d3bda4','#c7b39f');
- solid(2.1,2.15,.32,1.7,.9,.85,'#9b6c4f','#86583c','#755441');
- // milk chiller and milking machine mini-sets
- queueTank(8.1,2.5);
- for(let i=0;i<5;i++){
-  const x=3.6+i*1.45;solid(x,8.5,.24,.16,3.15,1.25,'#d6e1d7','#afc5bb','#afc5bb');
-  solid(x,8.65,.4,.64,.37,.42,'#628ca7','#3d7188','#4d7484');
+ bx(X(0),Y(0),Z(.77),1.69*scale,.98*scale,1.00*scale,'#fcf9ed','#e6e6e0','#e7ebe7');
+ // Holstein black spots on top + two sides; distinct shape separated from white body
+ bx(X(.22),Y(-.016),Z(1.15),.52*scale,.035*scale,.47*scale,'#242d34');
+ bx(X(1.03),Y(-.017),Z(.91),.38*scale,.035*scale,.52*scale,'#252e30');
+ bx(X(.42),Y(.965),Z(.95),.52*scale,.037*scale,.65*scale,'#272f35');
+ bx(X(1.22),Y(.96),Z(1.13),.28*scale,.038*scale,.33*scale,'#323638');
+ bx(X(.67),Y(.31),Z(1.75),.57*scale,.45*scale,.017*scale,'#272b2f');
+ bx(X(.08),Y(.03),Z(1.75),.21*scale,.37*scale,.012*scale,'#242c31');
+ // pink udder plus four teats (adult cow, not calf)
+ bx(X(.81),Y(.29),Z(.59),.5*scale,.44*scale,.28*scale,'#efb2ae','#dfa4a7');
+ for(const xx of [.93,1.20])for(const yy of [.35,.6])bx(X(xx),Y(yy),Z(.39),.07*scale,.07*scale,.25*scale,'#d9999b');
+ // rising shoulders, neck, clear square head toward +x
+ bx(X(1.45),Y(.16),Z(1.11),.4*scale,.69*scale,.80*scale,'#f7f5ee');
+ bx(X(1.70),Y(.22),Z(1.36),.65*scale,.61*scale,.65*scale,'#f7f3ea','#e9e9df','#d5d5cb');
+ bx(X(2.25),Y(.25),Z(1.27),.28*scale,.55*scale,.32*scale,'#f0b6b2','#eaa19d','#dc9e9f');
+ for(const yy of [.17,.79]){
+  bx(X(1.76),Y(yy),Z(1.87),.25*scale,.17*scale,.15*scale,'#f0eee2');
+  bx(X(2.18),Y(yy),Z(1.76),.075*scale,.045*scale,.09*scale,'#172a2b');
  }
- // silos, TMR hay blocks and feed cart
- for(let i=0;i<3;i++)solid(10+i*1.0,1.5,0,.78,.78,4.1,'#d6d7bf','#b1c0ae','#b3bba8');
- for(let i=0;i<4;i++)solid(15.25+i*1.28,2.45,0,1.1,1.0,.99,'#d9bb74','#ac935b','#bea16a');
- queueTractor(17.2,4.2);solid(18.9,4.2,0,2,.95,.96,'#cb6d43','#a95533','#ad613c');
- // calf pen railings
- for(let i=0;i<4;i++){solid(14.3+i*1.9,12.45,.24,.14,2.8,1.1,'#e5e9dd','#bdc6bf','#c2c8be');}
- queueFan(19.35,13.1);
- for(let i=0;i<3;i++){solid(15.1+i*1.5,13.6,.27,.8,.44,.23,'#81b0bd','#6e9ba7','#588a9a')}
- // everyday cows, some just grazing
- for(const [x,y] of [[4.5,9.4],[7,9.5],[9,9.2],[15.2,8.1],[18.2,8.4],[15.0,14.4],[17.2,14.1]])queueCow(x,y);
- // NPCs, avoid drawing exact duplicates of current player only
- queuePerson(5,5,'#b55f4c');queuePerson(10,11,'#b96186');queuePerson(19,5,'#37709b');queuePerson(5,15,'#95724b');queuePerson(15,15,'#6b9b6c');
- for(const n of activeNodes()){
-  if(n.style==='cow'&&n.primary)queueCow(n.x,n.y);
-  if(n.style==='tank'&&n.primary)queueTank(n.x,n.y);
-  if(n.style==='fan'&&n.primary)queueFan(n.x,n.y);
-  const height= n.style==='cow'?1.9:n.style==='tank'?2.25:n.style==='fan'?2.9:2.45;
-  sticker(n.x+.5,n.y+.4,height+0.45,(n.primary?'❗ ':'• ')+n.label,n.primary)
- }
- queuePerson(s.x,s.y,'#336f9e',true);
+ // muzzle nostrils and two eyes
+ for(const yy of [.36,.67])bx(X(2.535),Y(yy),Z(1.38),.012*scale,.07*scale,.066*scale,'#966c6c');
+ bx(X(2.01),Y(.20),Z(1.69),.085*scale,.025*scale,.095*scale,'#202931');
+ bx(X(2.01),Y(.815),Z(1.69),.085*scale,.028*scale,.095*scale,'#202931');
+ // yellow ear-tag at head side
+ bx(X(1.86),Y(-.022),Z(1.87),.12*scale,.036*scale,.14*scale,'#f8ca37');
+ beam(X(-.04),Y(.80),Z(1.58),X(-.35),Y(.82),Z(.98),.035*scale,'#e7ece4');
+ bx(X(-.39),Y(.76),Z(.92),.11*scale,.10*scale,.17*scale,'#30383b');
 }
-function paintLabel(x,y,z,t,main){const p=proj(x,y,z);const bob=main?Math.sin(animation/400)*3:0;const px=p.x,py=p.y-12+bob;
- if(px<-110||px>vw+110||py<-60||py>vh+60)return;
- const fs=Math.max(10,13*zoom),pad=9;ctx.font=(main?'900 ':'700 ')+fs+'px system-ui';const width=Math.min(ctx.measureText(t).width+pad*2,vw-12);ctx.fillStyle=main?'#edb33d':'#173a43e9';ctx.strokeStyle=main?'#f8d982':'#7eaba8';ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(px-width/2,py-24,width,29,6);ctx.fill();ctx.stroke();ctx.fillStyle=main?'#293639':'#f6f2e5';ctx.textAlign='center';ctx.fillText(t,px,py-5)}
-function draw(){
- if(vw<2||vh<2)return;
- cA=Math.cos(angle);sA=Math.sin(angle);unit=(vw<700?64:76)*zoom;ox=vw*.5;oy=vh*(vw<700?.48:.51);
- ctx.clearRect(0,0,vw,vh);
- const grad=ctx.createLinearGradient(0,0,0,vh);grad.addColorStop(0,'#658c98');grad.addColorStop(.54,'#a0c7c5');grad.addColorStop(1,'#84b58a');ctx.fillStyle=grad;ctx.fillRect(0,0,vw,vh);
- faces=[];sprites=[];scenery();faces.sort((a,b)=>a.rank-b.rank);for(const f of faces)poly(f.p,f.color,f.edge);
- for(const t of sprites)paintLabel(t.x,t.y,t.z,t.label,t.main)
+function person(x,y,shirt='#356e99',player=false,personType='worker',stride=0){
+ shadow(x-.05,y-.10,.95,.84);
+ // chunky but identifiable boots, trouser legs, arms, torso, head and face
+ const step=player?Math.sin(stride)*.085:0;
+ bx(x+.18,y+.16,.06+Math.max(0,step),.22,.27,.66,'#293c48');
+ bx(x+.58,y+.16,.06+Math.max(0,-step),.22,.27,.66,'#293c48');
+ bx(x+.13,y+.11,.03,.31,.34,.18,'#252e35');bx(x+.55,y+.11,.03,.31,.34,.18,'#252e35');
+ bx(x+.10,y+.08,.69,.75,.50,.77,shirt,shirt,'#254d67');
+ // overalls and front pocket distinguish from faceless square
+ bx(x+.245,y+.05,.77,.47,.035,.49,player?'#305a88':'#325872');
+ bx(x+.38,y+.043,.94,.18,.026,.17,'#476c8a');
+ // arms and hands
+ bx(x-.065,y+.17,.78,.16,.27,.65,shirt);
+ bx(x+.85,y+.17,.78,.16,.27,.65,shirt);
+ bx(x-.065,y+.16,.65,.17,.28,.18,'#edc2a0');bx(x+.85,y+.16,.65,.17,.28,.18,'#edc2a0');
+ // neck and head
+ bx(x+.31,y+.17,1.45,.38,.30,.15,'#e8ad8d');
+ bx(x+.21,y+.105,1.58,.57,.45,.52,'#efbf9e','#dfab88','#dfa785');
+ // hair behind head and fringe, hat if needed
+ if(player){
+  bx(x+.17,y+.06,2.06,.67,.55,.18,'#2b75a5');bx(x+.55,y-.045,2.07,.39,.20,.09,'#366d9d');
+ }else if(personType==='meiling'){
+  bx(x+.16,y+.12,2.06,.64,.45,.16,'#68362d');bx(x+.59,y+.53,1.56,.27,.20,.56,'#533229');
+  bx(x+.12,y+.075,2.11,.74,.52,.20,'#cc6b79');bx(x+.45,y-.06,2.10,.47,.20,.10,'#d07d82');
+ }else{bx(x+.18,y+.15,2.06,.62,.43,.15,personType==='boss'?'#565148':'#3e3b35')}
+ // expressive simple eyes/nose on front y face and small cheek
+ for(const xx of [.38,.64])bx(x+xx,y+.069,1.855,.055,.028,.072,'#2c3435');
+ bx(x+.51,y+.060,1.715,.12,.026,.035,'#b07c67');
 }
-function resize(){vw=canvas.clientWidth;vh=canvas.clientHeight;dpr=Math.min(window.devicePixelRatio||1,1.5);canvas.width=Math.round(vw*dpr);canvas.height=Math.round(vh*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
-function animate(t){if(t-lastFrame<30){requestAnimationFrame(animate);return}lastFrame=t;
- if(s.autoPath.length&&$('overlay').classList.contains('hidden')){
-  if(t-s.lastMove>120){const step=s.autoPath.shift();s.x=step.x;s.y=step.y;s.lastMove=t;if(!s.autoPath.length)save()}
- }
- camX+=(s.x+.5-camX)*.20;camY+=(s.y+.5-camY)*.20;
- animation=t;draw();requestAnimationFrame(animate)
+function fan(x,y){bx(x-.04,y-.06,0,.30,.34,2.4,'#afbfc0');
+ bx(x-.36,y-.2,1.68,.95,.72,.98,'#dce5e3');
+ cylY(x+.12,y-.23,2.15,.10,.36,'#6b9d9f');
+ for(let i=0;i<4;i++){let a=i*Math.PI/2;beam(x+.12,y-.34,2.16,x+.12+Math.cos(a)*.33,y-.34,2.16+Math.sin(a)*.33,.085,'#b2cdd0')}
+ cylY(x+.12,y-.4,2.16,.16,.09,'#325568')}
+function milkTank(x,y){shadow(x-.3,y-.55,4.2,2.8);
+ // rounded horizontal stainless tank on legs with illuminated readout
+ for(const xx of [.45,2.5])for(const yy of [-.24,1.35])bx(x+xx,y+yy,0,.28,.29,.75,'#657a82');
+ cylX(x,y+.62,1.51,3.20,1.00,'#e2eae9',18);
+ cylX(x+.03,y+.62,1.51,.12,1.02,'#c0d3da',18);
+ bx(x+1.05,y-.43,1.03,1.2,.12,.84,'#244957');
+ bx(x+1.15,y-.442,1.19,.69,.025,.43,'#6db6cb');
+ bx(x+2.58,y-.11,2.30,.17,.17,.55,'#718e9b');
+ bx(x+2.43,y-.25,2.85,.47,.46,.16,'#cfdfdc');
+ beam(x+3.1,y+.62,.95,x+3.46,y+.62,.42,.1,'#708f99');
 }
-function directionDelta(button){const vx=button==='w'?0:button==='s'?0:button==='a'?-1:1;
- const vy=button==='w'?-1:button==='s'?1:0;
- const wx=vx*cA+vy*sA,wy=-vx*sA+vy*cA;
- if(Math.abs(wx)>Math.abs(wy))return[Math.sign(wx),0];return[0,Math.sign(wy)]
+function tractor(x,y){
+ // body, TMR wagon hopper, four visible dark wheels, bright hay surface
+ shadow(x-.15,y-.32,4.5,2.6);
+ for(const xx of [.39,1.73,2.7,3.65]){cylY(x+xx,y-.17,.50,.23,.46,'#252d35');cylY(x+xx,y+1.28,.5,.21,.45,'#262e34')}
+ bx(x+.15,y,.71,1.78,1.15,.54,'#367d52');bx(x+.28,y+.13,1.18,1.09,.93,.87,'#438966');
+ bx(x+.38,y+.12,1.94,.90,.16,.11,'#d8d4ac');bx(x+.38,y+.95,1.94,.90,.15,.11,'#d8d4ac');
+ bx(x+1.56,y+.34,1.22,.28,.42,.66,'#bad3ca');
+ bx(x+2.07,y-.19,.64,2.1,1.55,.52,'#c95738');
+ bx(x+2.05,y-.19,1.14,.14,1.55,.71,'#d46f3c');bx(x+4.03,y-.19,1.14,.15,1.55,.70,'#d66b3f');
+ bx(x+2.17,y-.13,1.15,1.84,.12,.58,'#da754c');bx(x+2.17,y+1.19,1.15,1.84,.14,.58,'#b75e38');
+ bx(x+2.23,y-.01,1.15,1.68,1.15,.32,'#c9ad62');
+ for(let i=0;i<9;i++)bx(x+2.3+(i%4)*.33,y+.10+Math.floor(i/4)*.31,1.5,.25,.25,.09,i%2?'#c6a05d':'#d5ba70');
 }
-function stepMove(dx,dy){if(!$('overlay').classList.contains('hidden')||!s.playing)return;hideQuick();s.autoPath=[];s.x=clamp(s.x+dx,1,W-2);s.y=clamp(s.y+dy,1,H-2);if(Math.random()<.2)save()}
-function moveScreen(dir){stepMove(...directionDelta(dir))}
-window.addEventListener('keydown',e=>{
- if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;
- const k=e.key.toLowerCase();const dirs={arrowup:'w',w:'w',arrowdown:'s',s:'s',arrowleft:'a',a:'a',arrowright:'d',d:'d'};
- if(dirs[k]){e.preventDefault();moveScreen(dirs[k]);return}
+function stall(x,y){ // upright barriers + 3D vacuum milking unit beneath rail
+ bx(x,y,.22,.14,2.25,1.30,'#cbd4d1');bx(x,y,1.35,1.28,.12,.12,'#bdcdd1');
+ bx(x+.88,y+.20,.7,.27,.42,.48,'#3b87a7');bx(x+.94,y+.24,1.1,.13,.15,.14,'#76bad2');
+ for(let i=0;i<4;i++){let yy=y+.70+i*.22;beam(x+.98,yy,1.1,x+1.22,yy+.1,.43,.05,'#273b43')}
+ cylZ(x+1.12,y+1.29,.2,.20,.34,'#51788a')
+}
+function barn(x,y,w,d){ // unobstructed open-sided milking and cattle barns, no roof covering animals
+ plane(x,y,.042,w,d,'#a9baba');
+ for(let xx=x;xx<=x+w;xx+=2.0){bx(xx,y,.05,.16,.17,3.35,'#dce3dc');bx(xx,y+d-.16,.05,.16,.17,3.35,'#dce3dc')}
+ for(let xx=x;xx<=x+w-2;xx+=2)bx(xx,y,3.31,2.1,.15,.12,'#bcc7c1');
+ bx(x,y+d-.15,3.34,w,.14,.12,'#bfccca')
+}
+function ground(){plane(-8,-8,-.06,43,39,'#83ad81');
+ // paths are continuous broad strips: not tiled checkerboard or grid walking
+ plane(1.65,5.65,.002,22,1.4,'#c6bca0');plane(11.75,1.8,.004,1.46,15.6,'#c8bda2');
+ plane(2.65,3.65,.006,1.45,14.3,'#c8bba1');plane(2.5,12.9,.009,21,1.42,'#ccbd9e');
+ plane(2.25,1.7,.011,5.2,3.8,'#cbb99b');plane(7.3,2.0,.013,6.8,3.6,'#b7c8c2');
+ plane(2.85,8.0,.014,8.8,4.5,'#bbcac3');plane(13.7,6.85,.015,8.1,4.7,'#bbc9bc');plane(13.7,12.15,.016,8.2,4.7,'#b7c8b8');
+ for(let i=0;i<15;i++)plane(1+(i*17%22),1+(i*29%17),.020,.46,.34,i%2?'#7baa73':'#79a77b')
+}
+function scenery(){ground();
+ // office furniture and walls; low walls allow view inside
+ bx(2.1,2.1,0,4.5,2.8,.21,'#e0cfaf');
+ bx(2.1,2.1,.2,4.5,.20,1.05,'#eee4cc');bx(2.1,2.1,.2,.20,2.8,.92,'#e6dfc9');
+ bx(2.7,2.65,.26,1.75,.76,.83,'#aa7b5c');bx(3.1,2.70,1.1,.48,.49,.10,'#f8eee1');
+ bx(5.2,3.68,.22,.83,.64,.61,'#9fbdbe');
+ // stainless tank across back, chiller display
+ milkTank(7.90,2.60);
+ // long airy parlour with larger milking stalls
+ barn(3.2,7.85,8.40,4.45);
+ for(let i=0;i<5;i++)stall(3.52+i*1.56,8.17);
+ // modern Free-stall and Fresh cow pens
+ barn(13.65,7.0,8.55,4.45);barn(13.65,12.2,8.55,4.40);
+ // milking and cattle pens railings
+ for(let xx=14;xx<=21.4;xx+=1.10){bx(xx,7.55,.2,.10,.09,1.5,'#d6dfda');bx(xx,11.5,.1,.10,.09,1.2,'#dde5df')}
+ bx(13.95,7.56,1.21,7.90,.08,.10,'#e1e7df');
+ for(let xx=14;xx<=21.6;xx+=1.15)bx(xx,12.45,.2,.09,.10,1.20,'#c8d3ca');
+ bx(14,12.45,1.08,7.8,.09,.09,'#e5e5d7');
+ // visible cow models large enough to identify, arranged in stalls
+ for(const [x,y] of [[4.25,9.15],[6.8,9.10],[9.15,9.12],[14.7,8.10],[18.0,8.20],[14.35,13.70],[17.5,13.62]])cow(x,y);
+ // TMR area / bales and bin with yellow grass
+ for(let i=0;i<5;i++){let xx=14.5+(i%3)*1.56,yy=2.16+Math.floor(i/3)*1.42;bx(xx,yy,0,1.28,1.1,1.10,'#d8bd78','#caa965','#b1975d');bx(xx+.10,yy+.07,1.11,1.08,.93,.035,'#e1c681')}
+ tractor(17.2,3.70);
+ for(let i=0;i<3;i++){cylZ(11+i*1.16,1.05,0,.46,3.9,'#becbd0',12);cylZ(11+i*1.16,1.05,3.88,.5,.18,'#dde4e1',12)}
+ // standing fans + water trough
+ fan(19.0,12.92);fan(16.2,7.32);
+ bx(15.0,15.8,0,2.65,.73,.73,'#79abbc');bx(15.12,15.91,.72,2.43,.50,.05,'#bfe4e9');
+ bx(19.00,10.65,0,2.12,.64,.75,'#81a8b1');bx(19.1,10.73,.75,1.86,.46,.05,'#b7e1e8');
+ // entrance gates, lane bollards, feed rails
+ for(let i=0;i<5;i++)bx(13.7+i*1.55,16.45,.03,.12,.10,1.1,'#d8d8c1');
+ bx(13.9,16.44,1.05,6.8,.11,.13,'#d7dfd8');
+ // identifiable people at work locations
+ person(4.80,4.60,'#b66c53',false,'manager');
+ person(9.85,10.65,'#b95a82',false,'meiling');
+ person(18.80,4.65,'#457fab',false,'worker');
+ person(4.80,14.55,'#97704e',false,'boss');
+ person(15.0,14.96,'#548e65',false,'worker');
+}
+let locs=[];
+function compile(type,src){const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(sh));return sh}
+function initGL(){
+ try{
+ const v=`attribute vec3 aPos;attribute vec3 aNormal;attribute vec3 aColor;uniform vec2 uCam;uniform vec2 uView;uniform vec2 uHalf;uniform float uPx;uniform float uElevS;uniform float uElevC;varying vec3 vCol;void main(){vec3 d=aPos-vec3(uCam,0.0);float rx=d.x*uView.x-d.y*uView.y;float ry=d.x*uView.y+d.y*uView.x;float sy=d.z*uElevC-ry*uElevS;float depth=ry*uElevC+d.z*uElevS;gl_Position=vec4(rx*uPx/uHalf.x,sy*uPx/uHalf.y,-depth/38.0,1.0);float light=clamp(.82+max(dot(normalize(aNormal),normalize(vec3(-.35,-.65,1.7))),0.0)*.22,.67,1.0);vCol=aColor*light;}`;
+ const f=`precision mediump float;varying vec3 vCol;void main(){gl_FragColor=vec4(vCol,1.0);}`;
+ if(!gl)throw new Error('WebGL unavailable on this device');const prog=gl.createProgram();gl.attachShader(prog,compile(gl.VERTEX_SHADER,v));gl.attachShader(prog,compile(gl.FRAGMENT_SHADER,f));gl.linkProgram(prog);if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog));gl.useProgram(prog);
+ locs={aPos:gl.getAttribLocation(prog,'aPos'),aNormal:gl.getAttribLocation(prog,'aNormal'),aColor:gl.getAttribLocation(prog,'aColor'),uCam:gl.getUniformLocation(prog,'uCam'),uView:gl.getUniformLocation(prog,'uView'),uHalf:gl.getUniformLocation(prog,'uHalf'),uPx:gl.getUniformLocation(prog,'uPx'),uElevS:gl.getUniformLocation(prog,'uElevS'),uElevC:gl.getUniformLocation(prog,'uElevC')};
+ gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);gl.clearColor(.49,.67,.72,1);
+ staging=[];scenery();const data=new Float32Array(staging);worldCount=data.length/9;worldBuffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,worldBuffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+ actorBuffer=gl.createBuffer();rendererOK=true;
+ }catch(err){rendererOK=false;const div=document.createElement('div');div.className='webgl-unavailable';div.innerHTML='<div>此裝置目前無法啟動 3D WebGL 畫面。<p>建議使用最新版 Chrome；也可以先玩不需 WebGL 的舊版。</p><p><a style="color:#ffe18b;font-weight:bold" href="./classic.html">開啟相容舊版 P0.3 →</a></p></div>';$('game').append(div);console.error(err)}
+}
+function setBuffer(buffer){gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.enableVertexAttribArray(locs.aPos);gl.enableVertexAttribArray(locs.aNormal);gl.enableVertexAttribArray(locs.aColor);gl.vertexAttribPointer(locs.aPos,3,gl.FLOAT,false,36,0);gl.vertexAttribPointer(locs.aNormal,3,gl.FLOAT,false,36,12);gl.vertexAttribPointer(locs.aColor,3,gl.FLOAT,false,36,24)}
+function project(x,y,z=0){const dx=x-camX,dy=y-camY,q=dx*Math.sin(angle)+dy*Math.cos(angle);return {x:ox+(dx*Math.cos(angle)-dy*Math.sin(angle))*unit,y:oy+(q*sinEl-z*cosEl)*unit}}
+function drawTags(){if(!locs)return;const nodes=activeNodes();if(nodes.length!==tags.childElementCount||nodes.map(n=>n.id).join('|')!==tags.dataset.list){tags.replaceChildren();tags.dataset.list=nodes.map(n=>n.id).join('|');for(const n of nodes){const e=document.createElement('div');e.className='worldtag '+(n.primary?'primary':'');e.textContent=n.label;tags.appendChild(e)}}nodes.forEach((n,i)=>{const p=project(n.x+.45,n.y+.45,n.style==='cow'?2.3:n.style==='tank'?3:n.style==='fan'?3.1:2.6);const e=tags.children[i];e.style.left=p.x+'px';e.style.top=(p.y-6)+'px';e.style.display=p.x<-100||p.x>vw+100||p.y<-90||p.y>vh+60?'none':'block'})}
+function draw(){if(!rendererOK)return;gl.viewport(0,0,canvas.width,canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+ gl.uniform2f(locs.uCam,camX,camY);gl.uniform2f(locs.uView,Math.cos(angle),Math.sin(angle));gl.uniform2f(locs.uHalf,vw/2,vh/2);gl.uniform1f(locs.uPx,unit);gl.uniform1f(locs.uElevS,sinEl);gl.uniform1f(locs.uElevC,cosEl);
+ setBuffer(worldBuffer);gl.drawArrays(gl.TRIANGLES,0,worldCount);
+ staging=[];const stepping=Math.hypot(velX,velY)>.15;person(s.x,s.y,'#2a6d9d',true,'player',stepping?animation*.012:0);let data=new Float32Array(staging);actorCount=data.length/9;gl.bindBuffer(gl.ARRAY_BUFFER,actorBuffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);setBuffer(actorBuffer);gl.drawArrays(gl.TRIANGLES,0,actorCount);drawTags();
+}
+function resize(){vw=canvas.clientWidth;vh=canvas.clientHeight;dpr=Math.min(window.devicePixelRatio||1,Math.max(1,Math.min(2,620000/Math.max(1,vw*vh))));canvas.width=Math.max(1,Math.round(vw*dpr));canvas.height=Math.max(1,Math.round(vh*dpr));unit=(vw<700?44:61)*zoom;ox=vw*.5;oy=vh*(vw<700?.55:.56);draw()}
+const keys={w:false,a:false,s:false,d:false};let velX=0,velY=0,lastSaved=0;
+function moveVector(){let sx=(keys.d?1:0)-(keys.a?1:0),sy=(keys.s?1:0)-(keys.w?1:0);const size=Math.hypot(sx,sy)||1;sx/=size;sy/=size;const ca=Math.cos(angle),sa=Math.sin(angle);return{x:sx*ca+sy*sa,y:-sx*sa+sy*ca,magnitude:Math.hypot(sx,sy)}}
+function animate(t){const dt=Math.min((t-lastFrame)/1000||.016,.055);lastFrame=t;animation=t;
+ if(s.playing&&$('overlay').classList.contains('hidden')){
+  const keyMotion=Object.values(keys).some(Boolean),v=moveVector();let wantX=0,wantY=0;
+  if(keyMotion){s.autoPath=[];hideQuick();wantX=v.x*3.35;wantY=v.y*3.35}
+  else if(s.autoPath.length){const dest=s.autoPath[0],dx=dest.x-s.x,dy=dest.y-s.y,dist=Math.hypot(dx,dy);if(dist<.20){s.autoPath.shift();save()}else{wantX=dx/dist*3.25;wantY=dy/dist*3.25}}
+  const alpha=Math.min(1,dt*(keyMotion||s.autoPath.length?11:16));velX+=(wantX-velX)*alpha;velY+=(wantY-velY)*alpha;
+  let nx=clamp(s.x+velX*dt,.70,W-1.0),ny=clamp(s.y+velY*dt,.70,H-1.0);
+  if(walkable(nx,ny)){s.x=nx;s.y=ny}if(Math.hypot(velX,velY)>.25)personYaw=Math.atan2(velY,velX);
+  if(t-lastSaved>3500&&Math.hypot(velX,velY)>.4){lastSaved=t;save()}
+ }else{velX*=Math.max(0,1-dt*16);velY*=Math.max(0,1-dt*16)}
+ let fac=1-Math.exp(-dt*5.5);camX+=(s.x+.5-camX)*fac;camY+=(s.y+.5-camY)*fac;draw();requestAnimationFrame(animate)
+}
+function moveScreen(dir){const m={w:'w',s:'s',a:'a',d:'d'};keys[m[dir]]=true}
+window.addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName))return;const k=e.key.toLowerCase(),dirs={arrowup:'w',w:'w',arrowdown:'s',s:'s',arrowleft:'a',a:'a',arrowright:'d',d:'d'};
+ if(dirs[k]){e.preventDefault();keys[dirs[k]]=true;return}
  if(['e',' ','enter'].includes(k)&&$('overlay').classList.contains('hidden')){e.preventDefault();closest()}
- if(k==='q'){angle-=Math.PI/8;e.preventDefault()}
- if(k==='r'){angle+=Math.PI/8;e.preventDefault()}
+ if(k==='q'){angle-=Math.PI/8;e.preventDefault()}if(k==='r'){angle+=Math.PI/8;e.preventDefault()}
 });
-// Mobile swipe and desktop drag rotate an orbit camera. A simple tap moves / interacts.
+window.addEventListener('keyup',e=>{const k=e.key.toLowerCase(),dirs={arrowup:'w',w:'w',arrowdown:'s',s:'s',arrowleft:'a',a:'a',arrowright:'d',d:'d'};if(dirs[k]){keys[dirs[k]]=false;e.preventDefault()}});
+window.addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 let pointer=null;
 canvas.addEventListener('pointerdown',e=>{if(!$('overlay').classList.contains('hidden'))return;pointer={x:e.clientX,y:e.clientY,lastX:e.clientX,drag:0};canvas.setPointerCapture(e.pointerId)});
-canvas.addEventListener('pointermove',e=>{if(!pointer)return;const dx=e.clientX-pointer.lastX;pointer.lastX=e.clientX;pointer.drag+=Math.abs(dx);if(Math.abs(e.clientX-pointer.x)>8||pointer.drag>9){angle+=dx*.010;hideQuick()}});
-canvas.addEventListener('pointerup',e=>{
- if(!pointer)return;let wasDrag=pointer.drag>12;pointer=null;if(wasDrag||!s.playing)return;
- const bb=canvas.getBoundingClientRect(),mx=e.clientX-bb.left,my=e.clientY-bb.top;
- const n=activeNodes().map(q=>({...q,p:proj(q.x+.5,q.y+.4,2.1)})).sort((a,b)=>Math.hypot(a.p.x-mx,a.p.y-my)-Math.hypot(b.p.x-mx,b.p.y-my))[0];
- if(n&&Math.hypot(n.p.x-mx,n.p.y-my)<65*zoom){interact(n);return}
- const rx=(mx-ox)/unit,ry=(my-oy)/(unit*upSin),dx=rx*cA+ry*sA,dy=-rx*sA+ry*cA;
- walkTo(camX+dx,camY+dy)
+canvas.addEventListener('pointermove',e=>{if(!pointer)return;const dx=e.clientX-pointer.lastX;pointer.lastX=e.clientX;pointer.drag+=Math.abs(dx);if(Math.abs(e.clientX-pointer.x)>8||pointer.drag>9){angle+=dx*.008;hideQuick()}});
+canvas.addEventListener('pointerup',e=>{if(!pointer)return;const wasDrag=pointer.drag>12;pointer=null;if(wasDrag||!s.playing)return;const bb=canvas.getBoundingClientRect(),mx=e.clientX-bb.left,my=e.clientY-bb.top;
+ const n=activeNodes().map(q=>({...q,p:project(q.x+.5,q.y+.4,2.5)})).sort((a,b)=>Math.hypot(a.p.x-mx,a.p.y-my)-Math.hypot(b.p.x-mx,b.p.y-my))[0];if(n&&Math.hypot(n.p.x-mx,n.p.y-my)<58*zoom){interact(n);return}
+ const rx=(mx-ox)/unit,ry=(my-oy)/(unit*sinEl),dx=rx*Math.cos(angle)+ry*Math.sin(angle),dy=-rx*Math.sin(angle)+ry*Math.cos(angle);walkTo(camX+dx,camY+dy)
 });
 canvas.addEventListener('pointercancel',()=>pointer=null);
-for(const b of document.querySelectorAll('#dpad button')){
- let timer;const d=b.dataset.dir;const go=()=>d==='e'?closest():moveScreen(d);
- b.addEventListener('pointerdown',e=>{e.preventDefault();go();if(d!=='e')timer=setInterval(go,165)});
- for(const ev of ['pointerup','pointercancel','pointerleave'])b.addEventListener(ev,()=>clearInterval(timer))
-}
+for(const b of document.querySelectorAll('#dpad button')){const d=b.dataset.dir;const release=e=>{if(keys[d]!==undefined)keys[d]=false};b.addEventListener('pointerdown',e=>{e.preventDefault();try{b.setPointerCapture(e.pointerId)}catch(err){};if(d==='e')closest();else keys[d]=true});for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,release)}
 for(const [id,da] of [['cam-left',-Math.PI/4],['cam-right',Math.PI/4]])$(id).onclick=()=>{angle+=da;hideQuick()};
-$('cam-plus').onclick=()=>zoom=clamp(zoom+.18,.65,1.8);
-$('cam-minus').onclick=()=>zoom=clamp(zoom-.18,.65,1.8);
+$('cam-plus').onclick=()=>{zoom=clamp(zoom+.17,.72,1.8);resize()};$('cam-minus').onclick=()=>{zoom=clamp(zoom-.17,.72,1.8);resize()};
+canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom+(e.deltaY<0?.09:-.09),.72,1.8);resize()},{passive:false});
+initGL();
+
 $('interact-btn').onclick=()=>closest();$('quick-x').onclick=hideQuick;
 $('auto').onclick=()=>{hideQuick();if(s.over){finish();return}const n=nodeData[missions[s.stage].node];walkTo(n.x,n.y);toast('走過去找 '+n.label)};$('restart').onclick=()=>setDialog('重新開始','要開始新的一局嗎？','進度會清空，大致工作相同，但現場情況和聊到的事可能不同。','',[{label:'確定，重新開始',click:()=>{reset();startDialog()}},{label:'取消，繼續遊玩',click:closeDialog}],s.clock);
 $('records').onclick=()=>setDialog('牧場事件日誌','這一天發生了什麼？',s.log.map(t=>'• '+escapeHTML(t)).join('<br>'),'',[{label:'關閉，繼續探索',click:closeDialog}],s.clock);
