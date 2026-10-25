@@ -350,7 +350,7 @@ function dirFromCode(code){
 addEventListener('keydown',e=>{
  if(e.target?.tagName==='INPUT'||e.target?.tagName==='TEXTAREA')return;
  const d=dirFromCode(e.code);
- if(d){e.preventDefault();keys[d]=true;return}
+ if(d){e.preventDefault();keys[d]=true;recordMove('鍵盤 '+d);return}
  if(e.code==='KeyE'||e.code==='Space'){if(!e.repeat){e.preventDefault();interact()}}
  if(e.code==='KeyQ')orbit.yaw-=.17;
  if(e.code==='KeyR')orbit.yaw+=.17;
@@ -364,12 +364,22 @@ const padPointers=new Map();
 for(const b of document.querySelectorAll('#pad button[data-k]')){
  const d=b.dataset.k;if(d==='interact')continue;
  const stop=e=>{if(e && padPointers.get(e.pointerId)!==d)return;if(e)padPointers.delete(e.pointerId);keys[d]=false;b.classList.remove('active')};
- b.addEventListener('pointerdown',e=>{if(!started||dialogOpen)return;e.preventDefault();padPointers.set(e.pointerId,d);keys[d]=true;b.classList.add('active');try{b.setPointerCapture(e.pointerId)}catch(_){}});
+ b.addEventListener('pointerdown',e=>{if(!started||dialogOpen)return;e.preventDefault();padPointers.set(e.pointerId,d);keys[d]=true;recordMove('方向鍵 '+d);b.classList.add('active');try{b.setPointerCapture(e.pointerId)}catch(_){}});
  for(const ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,stop);
  b.addEventListener('contextmenu',e=>e.preventDefault());
 }
 for(const ev of ['pointerup','pointercancel'])document.addEventListener(ev,e=>{const d=padPointers.get(e.pointerId);if(d){padPointers.delete(e.pointerId);keys[d]=false;document.querySelector('#pad button[data-k="'+d+'"]')?.classList.remove('active')}});
 const orbit={yaw:.72,pitch:.72,dist:mobile?11.2:13.5},target=new THREE.Vector3(),eye=new THREE.Vector3(),smoothEye=new THREE.Vector3(),vel=new THREE.Vector2();
+const lastValidPosition=player.root.position.clone();
+let moveSource='待機',lastInputUpdate=performance.now();
+const debugEl=$('debugMove');let debugVisible=false;
+$('debugBtn').onclick=()=>{debugVisible=!debugVisible;debugEl.hidden=!debugVisible};
+function recordMove(source){moveSource=source;lastInputUpdate=performance.now()}
+function tickDebug(){
+ if(!debugVisible)return;
+ const p=player.root.position;
+ debugEl.textContent='角色 X/Z: '+p.x.toFixed(2)+' / '+p.z.toFixed(2)+'\n鏡頭 X/Z: '+target.x.toFixed(2)+' / '+target.z.toFixed(2)+'\n操作: '+moveSource+'\n方向: '+(Object.entries(keys).filter(([,v])=>v).map(([k])=>k).join(',')||'-');
+}
 $('resetCam').onclick=()=>{orbit.yaw=.72;orbit.pitch=.72;orbit.dist=mobile?11.2:13.5;targetPoint=null;vel.set(0,0);releaseKeys();sayToast('鏡頭已回正')};
 let targetPoint=null,holdMap=new Map(),dragging=false,down=null,pinchDistance=0,time=0;
 function resize(){
@@ -414,7 +424,7 @@ function ptrEnd(e){
  const pt=new THREE.Vector3();
  if(ray.ray.intersectPlane(floorPlane,pt)){
   targetPoint=new THREE.Vector2(clamp(pt.x,-1.78,1.78),clamp(pt.z,-9.65,9.7));
-  sayToast('走過去看看')
+  recordMove('點擊地面');sayToast('走過去看看')
  }
 }
 canvas.addEventListener('pointerup',ptrEnd);canvas.addEventListener('pointercancel',ptrEnd);
@@ -460,17 +470,21 @@ const clock=new THREE.Clock();
 function tick(){
  const dt=Math.min(clock.getDelta(),.055);time+=dt;
  if(started&&!dialogOpen)playerMove(dt);
- if(!Number.isFinite(player.root.position.x)||!Number.isFinite(player.root.position.z)){
-   player.root.position.set(0,0,7.2);vel.set(0,0);targetPoint=null;releaseKeys()
- }
- const t=new THREE.Vector3(clamp(player.root.position.x,-1.65,1.65),1.42,clamp(player.root.position.z-1.1,-6.2,5.8));
+ const p=player.root.position;
+ if(!Number.isFinite(p.x)||!Number.isFinite(p.z)){
+   p.copy(lastValidPosition);vel.set(0,0);targetPoint=null;releaseKeys();
+   recordMove('座標異常，保留位置');sayToast('移動資料異常，已留在原位置');
+ }else lastValidPosition.copy(p);
+ // Follow the player for both touch-pad and tap-to-walk. Never clamp the camera
+ // to a smaller box or reset the player to the spawn point when input changes.
+ const t=new THREE.Vector3(p.x,1.42,p.z-.65);
  target.lerp(t,1-Math.exp(-dt*7));
  const hz=Math.cos(orbit.pitch)*orbit.dist;
  eye.set(target.x+Math.sin(orbit.yaw)*hz,target.y+Math.sin(orbit.pitch)*orbit.dist,target.z+Math.cos(orbit.yaw)*hz);
  smoothEye.lerp(eye,1-Math.exp(-dt*9));
  camera.position.copy(smoothEye);camera.lookAt(target);
- updateNear();renderer.render(scene,camera)
+ updateNear();tickDebug();renderer.render(scene,camera)
 }
-target.set(player.root.position.x,1.28,player.root.position.z);
+target.set(player.root.position.x,1.42,player.root.position.z-.65);
 smoothEye.set(target.x+Math.sin(orbit.yaw)*orbit.dist*.8,target.y+orbit.dist*.7,target.z+Math.cos(orbit.yaw)*orbit.dist*.8);
 renderer.setAnimationLoop(tick);
