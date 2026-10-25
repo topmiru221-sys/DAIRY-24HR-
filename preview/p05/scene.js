@@ -45,15 +45,15 @@ const C={
 const glow=new THREE.MeshBasicMaterial({color:0xfff3c6});
 function box(g,x,y,z,w,h,d,m,sh=true){
  const o=new THREE.Mesh(cube,m);o.position.set(x,y,z);o.scale.set(w,h,d);
- o.castShadow=sh;o.receiveShadow=true;g.add(o);return o
+ o.castShadow=sh&&(!mobile||w*h*d>.30);o.receiveShadow=true;g.add(o);return o
 }
 function cyl(g,x,y,z,rt,rb,h,m,n=12){
  const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,n),m);
- o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;g.add(o);return o
+ o.position.set(x,y,z);o.castShadow=!mobile||rt*rt*h>.045;o.receiveShadow=true;g.add(o);return o
 }
 function ball(g,x,y,z,sx,sy,sz,m,n=10){
  const o=new THREE.Mesh(new THREE.SphereGeometry(1,n,7),m);
- o.position.set(x,y,z);o.scale.set(sx,sy,sz);o.castShadow=true;o.receiveShadow=true;g.add(o);return o
+ o.position.set(x,y,z);o.scale.set(sx,sy,sz);o.castShadow=!mobile||sx*sy*sz>.10;o.receiveShadow=true;g.add(o);return o
 }
 function tube(g,pts,m,r=.034){
  const path=new THREE.CatmullRomCurve3(pts.map(p=>new THREE.Vector3(...p)));
@@ -116,8 +116,8 @@ for(const x of [-9.55,9.55])box(farm,x,4.02,0,.20,.17,22.5,C.steel);
 for(const z of [-8,-2,4,9]){
  box(farm,0,3.84,z,3.9,.13,.20,C.silvery);
  box(farm,0,3.74,z,2.45,.09,.42,glow,false);
- const light=new THREE.PointLight(0xffedc3,mobile?.48:.8,7.5,2);
- light.position.set(0,3.6,z);farm.add(light)
+ if(!mobile || z===-2 || z===4){const light=new THREE.PointLight(0xffedc3,mobile?.48:.8,7.5,2);
+ light.position.set(0,3.6,z);farm.add(light)}
 }
 for(const side of [-1,1]){
  box(farm,side*2.72,3.22,0,.10,.10,21.3,C.blue,false);
@@ -177,7 +177,7 @@ function cowMesh(number){
   [[.36,2.15],[.83,2.18],[1.08,1.78],[.80,1.46],[.52,1.56]],
   [[-.57,1.20],[-.26,1.16],[.03,1.34],[-.19,1.53],[-.53,1.49]]
  ];
- for(const z of [-.663,.663])for(const points of patches)spot(g,z,points);
+ for(const z of [-.674,.674])for(const points of patches)spot(g,z,points);
  // black back patches / spotted near shoulder
  box(g,-.45,2.247,-.12,.6,.045,.64,C.spot);
  // face looking outward along +X
@@ -270,11 +270,11 @@ sign(farm,'乳牛榨乳室',0,3.23,-10.8,3.8,'M I L K I N G   P A R L O R');
 // Incident-free everyday exploration, each station is optional
 const stations=[
  {id:'mei',name:'美玲姐',x:-.67,z:-1.15,r:2.65,read:['欸你來了喔？早上這批比較乖，等一下你幫我拿紙巾就好。','今天比較順啦，先別站在那邊擋路，去旁邊看看。','欸，地有點濕，走慢一點啦。'],btns:['問問今天忙不忙','幫忙看一頭']},
- {id:'cow',name:'1247 號牛',x:1.9,z:-4.0,r:2.5,read:['這頭牛站得滿穩的，耳標也看得清楚。旁邊兩頭倒是一直想回頭。','牠剛剛甩了一下尾巴，沒怎樣。現場還是要先確認耳標。'],btns:['看看牠的狀況','看耳標']},
- {id:'machine',name:'榨乳設備',x:1.9,z:-6.2,r:2.7,read:['旁邊的管線正在運作，乳杯和管線都有固定位置。','機器聲有節奏，站在旁邊能看清楚每組乳杯。'],btns:['看看乳杯和軟管','詢問美玲姐']},
- {id:'console',name:'設備顯示器',x:1.6,z:-4.2,r:2.35,read:['目前面板是一般運轉狀態。單看這個數值沒有辦法判斷整個榨乳品質。','畫面顯示正在運轉，其他資料要另外翻當班紀錄。'],btns:['看看面板','轉頭看牛群']},
+ {id:'cow',name:'1242 號牛',x:-1.68,z:-4.15,r:1.65,read:['這頭牛站得滿穩的，耳標也看得清楚。旁邊兩頭倒是一直想回頭。','牠剛剛甩了一下尾巴，沒怎樣。現場還是要先確認耳標。'],btns:['看看牠的狀況','看耳標']},
+ {id:'machine',name:'榨乳設備',x:-1.65,z:-7.3,r:1.75,read:['旁邊的管線正在運作，乳杯和管線都有固定位置。','機器聲有節奏，站在旁邊能看清楚每組乳杯。'],btns:['看看乳杯和軟管','詢問美玲姐']},
+ {id:'console',name:'設備顯示器',x:1.6,z:-4.2,r:1.75,read:['目前面板是一般運轉狀態。單看這個數值沒有辦法判斷整個榨乳品質。','畫面顯示正在運轉，其他資料要另外翻當班紀錄。'],btns:['看看面板','轉頭看牛群']},
  {id:'drain',name:'走道與排水',x:.0,z:3.2,r:2.45,read:['走道中央有排水溝，地板潮濕，走起來要注意。','早班有人剛沖過地板，現在清潔工具已經收起來了。'],btns:['看看地面','繼續往前走']},
- {id:'worker',name:'阿力',x:1.05,z:-7.0,r:2.3,read:['後面那排我顧啦。你如果要看，記得不要站在牛要走的地方。','等這排弄好，我再去推一下料。今天早上還算順。'],btns:['聊兩句','看看這排牛']}
+ {id:'worker',name:'阿力',x:1.05,z:-7.0,r:1.8,read:['後面那排我顧啦。你如果要看，記得不要站在牛要走的地方。','等這排弄好，我再去推一下料。今天早上還算順。'],btns:['聊兩句','看看這排牛']}
 ];
 const observed=new Set(),tip=$('toast'),prompt=$('prompt'),act=$('act');
 let toastTimer=0,near=null,dialogOpen=false,started=false;
@@ -302,7 +302,7 @@ function inspect(st,what){
  }
  if(st.id==='machine'){
   sayToast('看清楚乳杯、短乳管與上方管線的位置。');
- }else if(st.id==='cow')sayToast('耳標看到了：1247。這頭站得滿安定的。');
+ }else if(st.id==='cow')sayToast('耳標看到了：1242。這頭站得滿安定的。');
  else if(st.id==='console')sayToast('目前一般運轉中，沒有跳出警示。');
  else if(st.id==='drain')sayToast('你留意到走道比較濕，經過時慢慢走。');
  else if(st.id==='mei')sayToast('美玲姐：你先看看，等一下有空再找我。');
