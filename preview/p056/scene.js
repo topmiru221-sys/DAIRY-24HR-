@@ -353,8 +353,8 @@ function talk(st){
    line=phase==='arrival'?'牛進來了，我看右邊喔。':'這排我看著，你先忙你的。';
  }else if(st.cowIndex!==undefined){
    line=st.name+'，現在'+parlor.getStage(st.cowIndex)+'。';
-   if(['prepare','attach','detach'].includes(phase)){
-     cycle.help();line+=' 你幫忙拿用具，美玲姐來處理。';
+   if(['prepare','attach','detach','postdip'].includes(phase)){
+     cycle.help();line+=phase==='postdip'?' 你把後藥浴瓶遞過去，美玲姐接手。':' 你幫忙拿用具，美玲姐來處理。';
    }else line+=' 沒特別狀況就看看就好。';
  }else if(st.kind==='tools'){
    if(phase==='prepare'){cycle.help();line='你拿了乾淨紙巾給美玲姐。她說：欸，謝啦。'}
