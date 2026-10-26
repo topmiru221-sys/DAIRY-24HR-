@@ -86,7 +86,7 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
  }
  function gateAcross(p,z,x0,x1,m=M.steel){
   const g=sceneGroup(p,0,0,0,'gate');
-  for(const yy of [.60,1.14])box(g,(x0+x1)/2,yy,z,x1-x0,.075,.075,m);
+  for(const yy of [.60,1.14])box(g,(x0+x1)/2,yy,z,Math.abs(x1-x0),.075,.075,m);
   for(const xx of [x0,x1])box(g,xx,.85,z,.08,1.4,.08,m);
   return g;
  }
