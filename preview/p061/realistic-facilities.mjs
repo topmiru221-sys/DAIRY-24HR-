@@ -193,7 +193,7 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
   if(!p)throw Error('Facility not found: '+id);
   const g=sceneGroup(p,0,0,0,'Real-farm redesign '+id);
   // Keep entry and central lane collision-free (player x clamped to ±1.82).
-  overhead(g,{airTube:id==='calf',open:!['manure','silage'].includes(id)});
+  if(!['manure','silage'].includes(id))overhead(g,{airTube:id==='calf',open:true});
   caption(g,FACILITY_LABELS[id],id==='manure'?'安全圍欄區｜不可下池':'依真實牧場配置重建',0,3.05,-9.64,5.0);
   return g;
  }
@@ -208,7 +208,7 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
   for(const side of [-1,1]){
    freeStalls(g,side);feedFront(g,side);
    for(const z of [-6,-1.8,2.5,6.7]){
-    addCow(g,side*4.60,z,{zone:id,face:-side,seed:16+z});
+    if(!mobile || [-6,2.5].includes(z))addCow(g,side*4.60,z,{zone:id,face:-side,seed:16+z});
    }
    water(g,side*2.75,7.6);
   }
@@ -283,7 +283,7 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
    // Interior pen sides are solid; front remains open bars for feeding.
    for(const zz of [z-1.41,z+1.41])box(g,x,.77,zz,2.74,1.30,.10,M.wall);
    fence(g,side*2.43,z-1.35,z+1.35,{front:false,spacing:.45,height:1.15});
-   addCow(g,x,z,{zone:id,scale:.43,face:-side,seed:120+i+side});
+   if(!mobile||i%2===0)addCow(g,x,z,{zone:id,scale:.43,face:-side,seed:120+i+side});
    cyl(g,side*2.26,.57,z-.61,.20,.22,.30,M.blue,9);
    cyl(g,side*2.26,.53,z+.48,.20,.22,.26,M.feed,9);
   }
@@ -302,7 +302,7 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
     const start=bounds[k],end=bounds[k+1];
     strawPad(g,side*4.28,(start+end)/2,3.10,end-start-.24);
     gateAcross(g,start,side*2.20,side*5.80);
-    addCow(g,side*4.25,(start+end)/2,{zone:id,scale:.65+k*.09,face:-side,seed:155+k+side});
+    if(!mobile||k!==1)addCow(g,side*4.25,(start+end)/2,{zone:id,scale:.65+k*.09,face:-side,seed:155+k+side});
    }
    gateAcross(g,7.7,side*2.20,side*5.80);
    water(g,side*2.85,6.7);
