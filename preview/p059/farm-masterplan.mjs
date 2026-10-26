@@ -18,7 +18,7 @@ export const ZONES=Object.freeze([
  {id:'loading',name:'集乳與車輛入口',icon:'🚚',x:0,z:-34,type:'loading',side:0},
  {id:'yard',name:'牧場中庭／公共道路',icon:'🗺',x:0,z:31,type:'yard',side:0},
 ]);
-export const AREA_IDS=Object.freeze(['farm',...ZONES.filter(v=>v.id!=='yard').map(v=>v.id)]);
+export const AREA_IDS=Object.freeze(['farm',...ZONES.filter(v=>!['yard','loading'].includes(v.id)).map(v=>v.id)]);
 export const SKELETON_ZONES=Object.freeze(ZONES.filter(v=>!v.built&&v.id!=='yard').map(v=>v.id));
 export function findZone(id){return ZONES.find(z=>z.id===id)||null}
 export function areaName(id){return id==='farm'?'牧場總覽':findZone(id)?.name||'未知區域'}
@@ -106,11 +106,9 @@ export function createMasterplan({THREE,scene,mobile=false}){
   label(root,zone.name,zone.built?'完成區域｜可進入':'地圖骨架｜待細修',x,3.72,z,w*.72,0);
   // Entrance markers are physically anchored on the road-facing side;
   // do not require an imagined mouse-clickable map projection.
-  const px=zone.side<0?Math.max(zone.x+5.8,-2.5):Math.min(zone.x-5.8,2.5);
-  const pz=z;
-  const gx=zone.side<0?Math.min(-3.05,px):Math.max(3.05,px);
-  box(root,gx,.10,pz,1.8,.08,1.2,C.yellow);
-  const postX=gx,postZ=pz;
+  const postX=zone.side<0?zone.x+w/2+.9:zone.x-w/2-.9;
+  const postZ=z;
+  box(root,postX,.10,postZ,1.8,.08,1.2,C.yellow);
   cy(root,postX,.75,postZ,.14,.16,1.3,facade,9);
   label(root,zone.name,'E：進入',postX,1.68,postZ,2.7,Math.PI/2);
   entries.push({id:'map-portal-'+zone.id,name:'進入'+zone.name,area:'farm',
