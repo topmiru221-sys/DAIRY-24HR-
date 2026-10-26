@@ -111,7 +111,7 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
    const t=time*.9+u.index*.75;
    u.animal.scale.y=1+.003*Math.sin(t);
    if(u.cow.head) {
-    u.cow.head.position.y=.018*Math.sin(t*.83);
+    u.cow.head.position.y=1.63+.018*Math.sin(t*.83);
     u.cow.head.rotation.z=.025*Math.sin(t*.48);
    }
    for(let i=0;i<u.cow.legs.length;i++){
