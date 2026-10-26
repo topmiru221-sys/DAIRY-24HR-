@@ -1,4 +1,5 @@
-// DAIRY 24HR P0.5.5 — consistent ten-bay parlor and quiet everyday motion.
+// DAIRY 24HR P0.5.6.1 — forward-facing, turning Holsteins; ten-bay full cycle.
+import {cowMotionPose} from './cow-walk.mjs';
 // Original low-poly geometry; references the user's milking-equipment slides.
 // Scene geometry is illustrative, not a commercial manufacturer's working drawing.
 export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=false}) {
@@ -97,21 +98,17 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
   const mode=state?.key||'milking',p=Math.min(1,Math.max(0,state?.progress??1));
   outputs.stages.length=0;outputs.milking=0;outputs.preparing=0;outputs.finished=0;
   for(const u of units){
-   const i=u.index%5,part=Math.max(0,Math.min(1,(p-i*.105)/(1-i*.105)));
-   const transit=smooth(part);
+   const i=u.index%5;
+   const pose=cowMotionPose({mode,progress:p,order:i,side:u.side,standZ:u.z,playing:state?.playing!==false});
+   u.animal.position.z=pose.z;
+   u.animal.rotation.y=pose.yaw;
+   u.animal.visible=pose.visible;
    let label='待命',attach=0;
    if(mode==='arrival'){
-    u.animal.visible=part>.001;
-    u.animal.position.z=(14+(4-i)*.55)*(1-transit)+u.z*transit;
-    label=transit>=1?'已進場':'進場中';
+    label=pose.phase>=.99?'已進場':'進場中';
    }else if(mode==='departure'){
-    const z=u.z*(1-transit)-16.5*transit;
-    u.animal.position.z=z;
-    u.animal.visible=z>-13.3;
     label='離場中';
    }else{
-    u.animal.position.z=u.z;
-    u.animal.visible=mode!=='cleaning'&&mode!=='complete';
     if(mode==='prepare'){label='前處理中';outputs.preparing++}
     if(mode==='attach'){label='接杯中';outputs.preparing++}
     if(mode==='milking'){label='榨乳中';outputs.milking++}
@@ -132,11 +129,15 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
    const t=time*.88+u.index*.65;
    u.animal.scale.y=1+.0038*Math.sin(t);
    if(u.cow.head){u.cow.head.position.y=1.63+.018*Math.sin(t*.83);u.cow.head.rotation.z=.035*Math.sin(t*.49)}
+   // The cow's body points along local +X. Hinge around Z for a front/back
+   // stride; the old rotation.x lifted legs sideways, amplifying crabwalking.
+   const stepWave=Math.sin(time*7.1+u.index*.42);
    for(let k=0;k<u.cow.legs.length;k++){
     const limb=u.cow.legs[k];
-    limb.rotation.z=.012*Math.sin(t*.56+k*1.6);
-    limb.rotation.x=['arrival','departure'].includes(mode)?
-      .13*Math.sin(time*6+u.index+k*Math.PI):0;
+    const diagonal=(k===0||k===3)?1:-1;
+    limb.rotation.x=0;
+    limb.rotation.z=pose.stride*diagonal*stepWave+
+       (pose.stride>0?0:.008*Math.sin(t*.54+k*1.6));
    }
   }
   const working=['prepare','attach','detach','postdip','cleaning'].includes(mode);
