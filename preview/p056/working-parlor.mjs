@@ -116,6 +116,7 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
     if(mode==='attach'){label='接杯中';outputs.preparing++}
     if(mode==='milking'){label='榨乳中';outputs.milking++}
     if(mode==='detach'){label='脫杯中';outputs.finished++}
+    if(mode==='postdip'){label='後藥浴中';outputs.finished++}
     if(mode==='cleaning'){label='清洗中';outputs.finished++}
     if(mode==='complete'){label='已完成';outputs.finished++}
    }
@@ -125,7 +126,7 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
    u.cluster.visible=u.animal.visible&&attach>.013;
    u.cluster.position.y=-(1-attach)*.18;
    u.led.material=['milking','cleaning'].includes(mode)?lampOn:
-     ['arrival','prepare','attach','detach','departure'].includes(mode)?warn:lampOff;
+     ['arrival','prepare','attach','detach','postdip','departure'].includes(mode)?warn:lampOff;
    u.meter.scale.x=mode==='milking'?.074+.036*(.5+.5*Math.sin(time*2.4+u.index)):.024;
    u.stage=label;outputs.stages[u.index]=label;
    const t=time*.88+u.index*.65;
@@ -138,10 +139,10 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
       .13*Math.sin(time*6+u.index+k*Math.PI):0;
    }
   }
-  const working=['prepare','attach','detach','cleaning'].includes(mode);
+  const working=['prepare','attach','detach','postdip','cleaning'].includes(mode);
   const reach=working?.55+.45*Math.sin(time*2.4):.13;
   const zShift=mode==='prepare'?.35:mode==='attach'?-1.2:
-    mode==='detach'?-1.8:mode==='cleaning'?5.45:mode==='milking'?2.1:0;
+    mode==='detach'?-1.8:mode==='postdip'?-1.2:mode==='cleaning'?5.45:mode==='milking'?2.1:0;
   const zWanted=Math.max(-9,Math.min(7,meiBase.z+zShift));
   meiling.root.position.z+=(zWanted-meiling.root.position.z)*.045;
   meiling.root.position.x=meiBase.x-.12*reach;
