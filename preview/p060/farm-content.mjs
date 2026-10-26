@@ -122,6 +122,8 @@ export function populateFarmContents({THREE,master,mobile=false}){
   face.position.set(x,y,z);g.add(face);
  }
  const animations=[],stations=[],counts={};
+ const areaAnimations=new Map();let addingToZone=null;
+ function addAnimation(fn){animations.push(fn);if(!areaAnimations.has(addingToZone))areaAnimations.set(addingToZone,[]);areaAnimations.get(addingToZone).push(fn)}
  function cow(g,x,z,index,scale=1){
   const a=group(g,'Farm cow '+index,x,.13,z);a.scale.set(scale,scale,scale);
   a.rotation.y=index%2?0:Math.PI;
@@ -143,7 +145,7 @@ export function populateFarmContents({THREE,master,mobile=false}){
   const tail=group(a,'Swaying tail',-.85,1.34,0);
   box(tail,-.15,-.25,0,.10,.51,.09,C.hide);
   box(tail,-.19,-.46,0,.14,.16,.13,C.black);
-  animations.push(t=>{
+  addAnimation(t=>{
    head.rotation.z=.034*Math.sin(t*.74+index);head.position.y=1.19+.016*Math.sin(t*1.1+index);
    tail.rotation.x=.18*Math.sin(t*1.35+index);
    a.position.y=.13+.008*Math.sin(t*1.15+index);
@@ -187,6 +189,7 @@ export function populateFarmContents({THREE,master,mobile=false}){
  }
  for(const id of CONTENT_AREAS){
   const g=master.interiors.get(id);if(!g)throw Error('Missing room shell: '+id);
+  addingToZone=id;
   counts[id]=0;
   const start=stations.length, p=CONTENT_SPEC[id];
   const built=group(g,'P060 real scene content — '+id);
@@ -227,7 +230,7 @@ export function populateFarmContents({THREE,master,mobile=false}){
    }
    const auger=group(mixer,'Rotating auger',0,1.95,0);
    for(let n=0;n<3;n++)box(auger,-.7+n*.7,0,0,.50,.14,.13,C.chrome);
-   animations.push(t=>{auger.rotation.y=t*.12});
+   addAnimation(t=>{auger.rotation.y=t*.12});
    const screen=group(built,'TMR scale panel',-4.5,1.7,2.4);
    box(screen,0,.30,0,1.0,.76,.24,C.steel);
    box(screen,0,.31,.14,.80,.50,.04,C.screen);
@@ -276,7 +279,7 @@ export function populateFarmContents({THREE,master,mobile=false}){
    const separator=group(built,'Solid-liquid separator',-4.25,0,4.0);
    box(separator,0,1.35,0,2.50,1.35,1.35,C.steel);
    const rotor=cyl(separator,0,1.48,0,.54,.54,1.48,C.chrome,12);rotor.rotation.z=Math.PI/2;
-   animations.push(t=>{rotor.rotation.x=t*.24});
+   addAnimation(t=>{rotor.rotation.x=t*.24});
    const motor=group(built,'Wastewater pump',4.40,0,4.0);
    cyl(motor,0,.73,0,.50,.50,1.10,C.blue);
    box(motor,0,.16,0,1.4,.25,1.25,C.steel);
@@ -284,7 +287,7 @@ export function populateFarmContents({THREE,master,mobile=false}){
   }else if(id==='machinery'){
    const tractor=group(built,'Tractor in repair shed',-4.25,0,-3.7);
    box(tractor,0,1.12,0,2.35,1.35,3.25,C.blue);
-   box(tractor,0,2.07,-.8,1.60,.80,1.25,C.glass||C.chrome);
+   box(tractor,0,2.07,-.8,1.60,.80,1.25,C.chrome);
    box(tractor,0,2.44,-.8,1.8,.14,1.52,C.steel);
    for(const xx of [-1.12,1.12])for(const zz of [-1.15,1.15]){
     const wheel=cyl(tractor,xx,.5,zz,.57,.57,.24,C.rubber,12);wheel.rotation.z=Math.PI/2;
@@ -301,9 +304,10 @@ export function populateFarmContents({THREE,master,mobile=false}){
   }
   counts[id]=stations.length-start;
  }
- function animate(time){
+ function animate(time,area){
   if(!Number.isFinite(time))return;
-  for(const cb of animations)cb(time);
+  const active=area?areaAnimations.get(area)||[]:animations;
+  for(const cb of active)cb(time);
  }
  return {stations,animate,counts,totalProps:animations.length,areas:CONTENT_AREAS};
 }
