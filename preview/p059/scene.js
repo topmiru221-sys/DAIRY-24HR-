@@ -298,6 +298,7 @@ for(const obj of parlorVisuals)obj.visible=false;
 master.visibleArea('farm');
 player.root.position.set(0,0,31.5);
 $('stageInfo').style.display='none';
+$('shiftOpen').style.display='none';
 const story=createMorningStory({variant:Math.floor(Math.random()*3)});
 story.enterArea('parlor');
 // Incident-free everyday exploration, each station is optional
@@ -354,6 +355,7 @@ for(const z of ZONES){
 function closeMap(){$('mapOverlay').hidden=true;$('mapOpen').setAttribute('aria-expanded','false')}
 $('mapOpen').onclick=()=>{
  const el=$('mapOverlay');el.hidden=!el.hidden;
+ if(!el.hidden){$('shiftPanel').hidden=true;$('shiftOpen').setAttribute('aria-expanded','false')}
  $('mapOpen').setAttribute('aria-expanded',String(!el.hidden));
 };
 $('mapClose').onclick=closeMap;
@@ -385,6 +387,7 @@ function updateStoryHUD(){
 }
 $('shiftOpen').onclick=()=>{
  const panel=$('shiftPanel');panel.hidden=!panel.hidden;
+ if(!panel.hidden)closeMap();
  $('shiftOpen').setAttribute('aria-expanded',String(!panel.hidden));
  updateStoryHUD();
 };
@@ -551,7 +554,7 @@ function tickDebug(){
  const p=player.root.position;
  debugEl.textContent='角色 X/Z: '+p.x.toFixed(2)+' / '+p.z.toFixed(2)+'\n鏡頭 X/Z: '+target.x.toFixed(2)+' / '+target.z.toFixed(2)+'\n操作: '+moveSource+'\n方向: '+(Object.entries(keys).filter(([,v])=>v).map(([k])=>k).join(',')||'-');
 }
-$('resetCam').onclick=()=>{orbit.yaw=.72;orbit.pitch=.72;orbit.dist=mobile?11.2:13.5;targetPoint=null;vel.set(0,0);releaseKeys();sayToast('鏡頭已回正')};
+$('resetCam').onclick=()=>{orbit.yaw=.72;orbit.pitch=activeArea==='farm'?.85:.72;orbit.dist=activeArea==='farm'?(mobile?16.5:19):(mobile?11.2:13.5);targetPoint=null;vel.set(0,0);releaseKeys();sayToast('鏡頭已回正')};
 let targetPoint=null,holdMap=new Map(),dragging=false,down=null,pinchDistance=0,time=0;
 // Explicit area travel retains the untouched P0.5.3 playerMove/d-pad movement.
 function setArea(area){
@@ -578,6 +581,10 @@ function setArea(area){
  $('instruction').querySelector('h3').textContent=info[0];
  $('instruction').querySelector('p').textContent=info[1];
  $('stageInfo').style.display=area==='parlor'?'':'none';
+ $('shiftOpen').style.display=['parlor','tank','office'].includes(area)?'':'none';
+ if(!['parlor','tank','office'].includes(area)){
+   $('shiftPanel').hidden=true;$('shiftOpen').setAttribute('aria-expanded','false');
+ }
  const firstVisit=story.enterArea(area);
  if(firstVisit)sayToast(firstVisit);
  for(const btn of document.querySelectorAll('#roomNav button[data-area]')){
