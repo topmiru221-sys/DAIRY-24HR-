@@ -276,6 +276,8 @@ function updateCycleHUD(){
  $('cycleToggle').textContent=v.done?'▶ 下一批':v.playing?'⏸ 暫停':'▶ 繼續';
  $('workStatus').textContent=activeArea==='tank'?'儲乳槽｜模擬溫度 3.8°C（非即時）':
  activeArea==='office'?'管理室｜值班紀錄・交班資料（示意）':
+ activeArea==='farm'?'整座牧場｜14處可進入建築・道路已配置':
+ SKELETON_ZONES.includes(activeArea)?areaName(activeArea)+'｜可進入的空間骨架':
  '牛位10｜榨乳 '+o.milking+'・準備 '+o.preparing+'・完成 '+o.finished+'｜協助 '+v.helps;
 }
 $('cycleToggle').onclick=()=>{cycle.toggle();updateCycleHUD()};
@@ -511,7 +513,7 @@ function interact(){
  else sayToast('走近人物、乳牛或設備，再試試看。')
 }
 act.onclick=interact;$('pad').querySelector('[data-k=interact]').addEventListener('click',interact);
-$('begin').onclick=()=>{started=true;$('start').style.display='none';cycle.toggle();updateCycleHUD();updateStoryHUD();sayToast('第一批牛進來囉，按右側 📋 可以查看早班工作。')};
+$('begin').onclick=()=>{started=true;$('start').style.display='none';cycle.toggle();updateCycleHUD();updateStoryHUD();sayToast('先探索道路與建築。右側 🗺 可以查看完整牧場配置。')};
 const keys={up:false,down:false,left:false,right:false};
 function dirFromCode(code){
  return {KeyW:'up',ArrowUp:'up',KeyS:'down',ArrowDown:'down',KeyA:'left',ArrowLeft:'left',KeyD:'right',ArrowRight:'right'}[code]
@@ -584,7 +586,9 @@ function setArea(area){
    btn.setAttribute('aria-pressed',String(isCurrent));
  }
  updateCycleHUD();updateNear();updateStoryHUD();
- if(!firstVisit)sayToast(area==='tank'?'儲乳區到了，看看儲乳設備吧。':
+ if(!firstVisit)sayToast(area==='farm'?'回到牧場總覽了。':
+  SKELETON_ZONES.includes(area)?areaName(area)+' 已建立空間骨架。':
+  area==='tank'?'儲乳區到了，看看儲乳設備吧。':
   area==='office'?'到管理室了。':'回到榨乳室。');
 }
 for(const btn of document.querySelectorAll('#roomNav button[data-area]')){
@@ -631,7 +635,10 @@ function ptrEnd(e){
  ray.setFromCamera(screen,camera);
  const pt=new THREE.Vector3();
  if(ray.ray.intersectPlane(floorPlane,pt)){
-  targetPoint=new THREE.Vector2(clamp(pt.x,-1.78,1.78),clamp(pt.z,-9.65,9.7));
+  targetPoint=new THREE.Vector2(
+  clamp(pt.x,activeArea==='farm'?-35:-1.78,activeArea==='farm'?35:1.78),
+  clamp(pt.z,activeArea==='farm'?-37:-9.65,activeArea==='farm'?37:9.7)
+);
   recordMove('點擊地面');sayToast('走過去看看')
  }
 }
@@ -657,8 +664,8 @@ function playerMove(dt){
  if(!Number.isFinite(vel.x)||!Number.isFinite(vel.y))vel.set(0,0);
  const oldX=player.root.position.x,oldZ=player.root.position.z;
  const nx=oldX+vel.x*step,nz=oldZ+vel.y*step;
- player.root.position.x=Number.isFinite(nx)?clamp(nx,-1.82,1.82):oldX;
- player.root.position.z=Number.isFinite(nz)?clamp(nz,-9.7,9.75):oldZ;
+ player.root.position.x=Number.isFinite(nx)?clamp(nx,activeArea==='farm'?-35:-1.82,activeArea==='farm'?35:1.82):oldX;
+ player.root.position.z=Number.isFinite(nz)?clamp(nz,activeArea==='farm'?-37:-9.7,activeArea==='farm'?37:9.75):oldZ;
  if(Math.abs(oldX-player.root.position.x)<.001)vel.x=0;
  if(Math.abs(oldZ-player.root.position.z)<.001)vel.y=0;
  const moving=vel.length()>.20;
@@ -683,13 +690,13 @@ function tick(){
  if(started&&!dialogOpen)playerMove(dt);
  if(started){
    const everydayEvent=story.update(dt);
-   if(everydayEvent&&!dialogOpen)sayToast(everydayEvent);
+   if(everydayEvent&&!dialogOpen&&['parlor','tank','office'].includes(activeArea))sayToast(everydayEvent);
    cycle.update(dt);
    const stage=cycle.snapshot();
    if(activeArea==='parlor'){
      parlor.animate(time,stage);
      room.animate(stage.key,time);
-   }else support.animate(time);
+   }else if(['tank','office'].includes(activeArea))support.animate(time);
    if(time-workStatusLast>.22){
      workStatusLast=time;updateCycleHUD();
      $('simClock').textContent=story.snapshot().clock;
