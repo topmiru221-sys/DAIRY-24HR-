@@ -21,7 +21,7 @@ export function createMorningStory({variant=0}={}){
   {parlor:'入口傳來牛隻緩緩走動的聲音，這是普通的一天。',tank:'儲乳區的顯示器亮著，標記清楚寫著「模擬」。',office:'監控示意螢幕亮著，值班人員把資料整理在一旁。'}
  ];
  let focus='cows',elapsed=0,clockMinutes=310,zone='parlor',zoneSeconds=0;
- let pendingEvent=null,completedAnnounced=false;
+ let pendingEvent=null;
  const requireTask=id=>MORNING_TASKS.find(x=>x.id===id);
  function clock(){
   const minutes=Math.floor(clockMinutes);
@@ -62,7 +62,8 @@ export function createMorningStory({variant=0}={}){
   if(task.area!==area)return {changed:false,completed:isComplete()};
   if(done.has(taskId))return {changed:false,completed:isComplete()};
   if(taskId==='report' && !['prepare','cooling','handover'].every(k=>done.has(k))){
-   return {changed:false,completed:false,blocked:true,line:'美玲姐：「不用急啦，先四處走走，再回來聊。」'};
+   // Do not turn normal NPC conversation into a compulsory task gate.
+   return {changed:false,completed:false};
   }
   done.add(taskId);
   const completed=isComplete();
