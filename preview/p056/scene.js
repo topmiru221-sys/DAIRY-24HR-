@@ -1,6 +1,6 @@
 // DAIRY 24HR P0.5.3 — corrected mobile D-pad world direction.
 import {directionVelocity,safeTimeStep} from './controls.mjs';
-import {installWorkingParlor} from './working-parlor.mjs';
+import {installWorkingParlor} from './working-parlor.mjs?v=p0561';
 import {setupAmbience} from './ambience.mjs';
 import {createMilkingCycle} from './cycle.mjs';
 import {createMilkingRoomAssets} from './room-assets.mjs';
