@@ -1,6 +1,7 @@
 // DAIRY 24HR P0.5.3 — corrected mobile D-pad world direction.
 import {directionVelocity,safeTimeStep} from './controls.mjs';
 import {installWorkingParlor} from './working-parlor.mjs';
+import {setupAmbience} from './ambience.mjs';
 // Original low-poly scene; does not depend on Fab24hr source or DairyLife 360.
 const $=id=>document.getElementById(id);
 const mobile=matchMedia('(max-width:700px)').matches;
@@ -258,6 +259,7 @@ worker.root.rotation.y=.5;
 // P0.5.5: ten detailed clusters, progressive tasks and natural workplace motion.
 // P0.5.3 movement, camera and input handling remain byte-identical.
 const parlor=installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile});
+setupAmbience($('soundBtn'));
 let workStatusLast=-3;
 // Help station visuals & interactive surfaces
 const consoleX=1.62,consoleZ=-4.2;
