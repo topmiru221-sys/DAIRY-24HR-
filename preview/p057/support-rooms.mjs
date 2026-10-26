@@ -66,11 +66,11 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  const storage=baseRoom('MILK STORAGE — walkthrough',C.pipe);
  sign(storage,'儲乳區','BULK MILK STORAGE',0,3.15,-9.99,3.8);
  const tank=group(storage,'Stainless double-wall bulk milk tank');
- const tankBody=cyl(tank,-3.75,1.54,-2.3,1.32,1.32,4.2,C.steel,24);
+ const tankBody=cyl(tank,-4.0,1.54,-2.3,1.32,1.32,3.8,C.steel,24);
  tankBody.rotation.z=Math.PI/2;
- const endA=cyl(tank,-1.64,1.54,-2.3,1.28,1.28,.14,C.chrome,24);endA.rotation.z=Math.PI/2;
- const endB=cyl(tank,-5.84,1.54,-2.3,1.28,1.28,.14,C.chrome,24);endB.rotation.z=Math.PI/2;
- for(const x of [-5.2,-2.35]){
+ const endA=cyl(tank,-2.10,1.54,-2.3,1.28,1.28,.14,C.chrome,24);endA.rotation.z=Math.PI/2;
+ const endB=cyl(tank,-5.90,1.54,-2.3,1.28,1.28,.14,C.chrome,24);endB.rotation.z=Math.PI/2;
+ for(const x of [-5.28,-2.60]){
   box(tank,x,.46,-2.7,.28,.52,.30,C.dark);
   box(tank,x,.46,-1.92,.28,.52,.30,C.dark);
  }
@@ -83,7 +83,7 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  for(let i=0;i<7;i++)box(tank,-4.75+i*.30,1.6,-.95,.055,.045,.06,i%2?C.steel:C.chrome);
  sign(storage,'保溫儲乳槽','示意模型・非即時量測',-3.4,3.36,.18,3.0);
  // Local milk temperature display, intentionally marked as a sample.
- const display=group(storage,'Bulk tank sample readout');display.position.set(1.55,0,-3.0);
+ const display=group(storage,'Bulk tank sample readout');display.position.set(2.25,0,-5.45);
  box(display,0,1.7,0,.7,1.4,.58,C.dark);
  box(display,0,2.03,.315,.61,.38,.045,C.pipe);
  sign(display,'3.8°C','模擬溫度｜非即時',0,2.04,.344,.70);
@@ -121,7 +121,7 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  sign(office,'今日工作','牛號核對・擠乳紀錄',-3.4,2.44,-7.73,3.15);
  sign(office,'交班備忘','確認設備・整理紀錄',-3.40,1.73,-7.7,2.65);
  // A realistic multi-person workspace: desk, two monitors and chair.
- const workstation=group(office,'Management computer desk');
+ const workstation=group(office,'Management computer desk');workstation.position.x=-.55;
  box(workstation,-3.18,1.05,-3.1,3.45,.16,1.46,C.wood);
  for(const x of [-4.70,-1.72])for(const z of [-3.70,-2.55])
   box(workstation,x,.52,z,.12,1,.12,C.steel);
@@ -151,14 +151,14 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  }
  sign(office,'紀錄櫃','DHI・乳量・作業單',-4.0,2.88,3.56,2.75);
  // Three CCTV/monitor wall screens with non-live symbolic displays.
- const screens=group(office,'Barn overview screens');
+ const screens=group(office,'Barn overview screens');screens.position.x=.25;
  for(const [i,x] of [[0,2.25],[1,3.54],[2,4.83]]){
   box(screens,x,2.35,-7.75,1.16,.75,.16,C.dark);
   box(screens,x,2.35,-7.64,.99,.56,.02,i===2?C.green:C.pipe);
   box(screens,x,2.00,-7.70,.46,.035,.03,C.chrome);
  }
  sign(office,'牧場監控','示意畫面・非即時',3.50,3.12,-7.58,2.9);
- const meeting=group(office,'Shift handover table');
+ const meeting=group(office,'Shift handover table');meeting.position.x=.30;
  box(meeting,3.43,.90,.8,3.15,.17,2.02,C.wood);
  for(const x of [2.22,4.62])for(const z of [-0.06,1.60])
   box(meeting,x,.45,z,.11,.88,.11,C.steel);
@@ -183,7 +183,7 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  const interactions={
   tank:[
    {id:'bulk-tank',name:'不鏽鋼儲乳槽',x:-1.65,z:-2.4,kind:'bulk-tank'},
-   {id:'milk-temp',name:'儲乳溫度面板',x:1.55,z:-3.0,kind:'milk-temp'},
+   {id:'milk-temp',name:'儲乳溫度面板',x:1.65,z:-5.4,kind:'milk-temp'},
    {id:'milk-chiller',name:'冷卻與壓縮機',x:1.70,z:-4.2,kind:'milk-chiller'},
    {id:'milk-sink',name:'清洗與衛生台',x:1.5,z:3.6,kind:'milk-sink'},
    {id:'milk-loading',name:'集乳車接乳口',x:-1.25,z:7.6,kind:'milk-loading'},
