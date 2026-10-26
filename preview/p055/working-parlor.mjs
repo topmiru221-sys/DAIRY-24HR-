@@ -102,7 +102,7 @@ export function installWorkingParlor({THREE,farm,cattle,meiling,worker,mobile=fa
    u.cluster.visible=attach>.015;
    u.cluster.position.y=-(1-attach)*.13;
    u.led.material=stage==='榨乳中'?lampOn:stage==='準備中'?warn:lampOff;
-   u.meter.scale.x=stage==='榨乳中'?.65+.35*(.5+.5*Math.sin(time*2.5+u.index)): .12;
+   u.meter.scale.x=stage==='榨乳中'?.08+.04*(.5+.5*Math.sin(time*2.5+u.index)):.022;
    u.stage=stage;outputs.stages[u.index]=stage;
    if(stage==='榨乳中')outputs.milking++;
    else if(stage==='準備中')outputs.preparing++;
