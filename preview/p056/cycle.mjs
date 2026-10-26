@@ -13,10 +13,11 @@ export const STAGES=Object.freeze([
 ]);
 export function createMilkingCycle(){
  let stage=0,elapsed=0,playing=false,round=1,helps=0,transitions=0;
+ const helped=new Set();
  const limit=dt=>Number.isFinite(dt)?Math.max(0,Math.min(dt,.1)):0;
  function next(){
-   if(stage<STAGES.length-1){stage++;elapsed=0;transitions++}
-   else{stage=0;elapsed=0;round++;transitions=0;helps=0}
+   if(stage<STAGES.length-1){stage++;elapsed=0;transitions++;helped.clear()}
+   else{stage=0;elapsed=0;round++;transitions=0;helps=0;helped.clear()}
    if(stage===STAGES.length-1)playing=false;
  }
  function update(dt){
@@ -25,9 +26,9 @@ export function createMilkingCycle(){
    if(elapsed>=STAGES[stage].seconds)next();
  }
  function jump(){next();return snapshot()}
- function replay(){stage=0;elapsed=0;round++;helps=0;playing=true;transitions=0;return snapshot()}
+ function replay(){stage=0;elapsed=0;round++;helps=0;playing=true;transitions=0;helped.clear();return snapshot()}
  function toggle(){if(stage===STAGES.length-1)return replay();playing=!playing;return snapshot()}
- function help(){if(playing&&['prepare','attach','detach','postdip','cleaning'].includes(STAGES[stage].key))helps++;return snapshot()}
+ function help(){if(playing&&!helped.has('this-stage')&&['prepare','attach','detach','postdip','cleaning'].includes(STAGES[stage].key)){helped.add('this-stage');helps++;elapsed=Math.min(STAGES[stage].seconds-.05,elapsed+1.2)}return snapshot()}
  function snapshot(){
    const item=STAGES[stage],seconds=item.seconds;
    return {stage:stage,key:item.key,label:item.label,hint:item.hint,
