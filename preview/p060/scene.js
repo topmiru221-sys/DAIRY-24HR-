@@ -345,13 +345,13 @@ for(const z of ZONES){
  if(['yard','loading'].includes(z.id))continue;
  const dot=document.createElement('button');dot.type='button';
  dot.className='map-dot'+(z.built?' finished':' basic');
- dot.textContent=z.icon;dot.title=z.name+(z.built?'｜完整場景':'｜基礎模型');
+ dot.textContent=z.icon;dot.title=z.name+(z.built?'｜精修場景':'｜新內容已加入');
  dot.style.left=((z.x+37)/74*100).toFixed(2)+'%';
  dot.style.top=((37-z.z)/74*100).toFixed(2)+'%';
  dot.onclick=()=>{setArea(z.id);closeMap()};
  mapBoard.appendChild(dot);
  const item=document.createElement('button');item.type='button';item.className='map-list-item';
- item.textContent=z.icon+' '+z.name+(z.built?' ✓':' · 骨架');
+ item.textContent=z.icon+' '+z.name+(z.built?' ✓ 精修':' · 新內容');
  item.onclick=()=>{setArea(z.id);closeMap()};
  mapDirectory.appendChild(item);
 }
@@ -721,7 +721,7 @@ function tick(){
      parlor.animate(time,stage);
      room.animate(stage.key,time);
    }else if(['tank','office'].includes(activeArea))support.animate(time);
-    else if(SKELETON_ZONES.includes(activeArea))fieldContent.animate(time);
+    else if(SKELETON_ZONES.includes(activeArea))fieldContent.animate(time,activeArea);
    if(time-workStatusLast>.22){
      workStatusLast=time;updateCycleHUD();
      $('simClock').textContent=story.snapshot().clock;
