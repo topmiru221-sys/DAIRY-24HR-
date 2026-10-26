@@ -164,12 +164,20 @@ export function createMasterplan({THREE,scene,mobile=false}){
   interiors.set(zone.id,g);
   box(g,0,-.15,0,12.8,.26,22,C.siding);
   box(g,0,.035,0,3.5,.03,20.8,C.lane);
-  for(const x of [-6.1,6.1]){
-   box(g,x,1.9,0,.16,3.75,21.1,C.wall);
-   for(const z of [-8,-2,4,9])box(g,x,2.65,z,.25,.13,.13,C.steel);
+  // Cattle housing uses open-sided steel frames; feed/silage have open
+  // loading fronts; manure treatment is an unfenced-in roofless pad ONLY
+  // until its own safety barriers are added by realistic-facilities.mjs.
+  const openAir=['manure','silage'].includes(zone.type);
+  const openShed=['feed','machinery'].includes(zone.type);
+  if(!openAir){
+    for(const x of [-6.05,6.05]){
+      for(const z of [-8,0,8])box(g,x,1.90,z,.14,3.72,.14,C.steel);
+      if(!openShed)box(g,x,.88,0,.16,1.65,18.2,C.wall);
+    }
+    box(g,0,3.35,-10.3,12.1,.12,.16,C.steel);
+    if(!openShed)for(const x of [-4.65,4.65])
+      box(g,x,1.0,10.3,2.5,1.95,.12,C.wall);
   }
-  box(g,0,2.95,-10.35,12.25,.15,.22,C.steel);
-  for(const x of [-4.7,4.7])box(g,x,1.85,10.3,2.35,3.7,.21,C.wall);
   label(g,zone.name,'依現場配置重建',0,3.02,-9.95,4.0);
   label(g,'返回牧場中庭','E／地圖可返回',0,2.6,9.9,3.1);
   // P0.6.1: REMOVE the repeated generic boxes and placeholder machines.
