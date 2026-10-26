@@ -194,6 +194,24 @@ export function rebuildDairyFacilities({THREE,master,mobile=false}){
   const g=sceneGroup(p,0,0,0,'Real-farm redesign '+id);
   // Keep entry and central lane collision-free (player x clamped to ±1.82).
   if(!['manure','silage'].includes(id))overhead(g,{airTube:id==='calf',open:true});
+  // Taiwan-type open dairy barns commonly mount fans above feed/resting lines.
+  // Pipework below represents OFF/available sprinkling hardware, not an
+  // automatic soaking schedule or a claim that misting is always suitable.
+  if(['lactating','dry','closeup','fresh','heifer'].includes(id)){
+   for(const side of [-1,1]){
+    const xx=side*2.45;
+    tube(g,[[xx,3.08,-8],[xx,3.08,-3],[xx,3.08,3],[xx,3.08,8]],.042,M.blue);
+    for(const z of [-6,0,6]){
+      cyl(g,xx,2.96,z,.078,.083,.10,M.steel,8);
+      const fan=sceneGroup(g,side*4.80,2.96,z,'Cow cooling fan');
+      const frame=cyl(fan,0,0,0,.36,.36,.10,M.dark,10);frame.rotation.x=Math.PI/2;
+      for(let k=0;k<3;k++){
+       const blade=box(fan,0,0,0,.52,.035,.11,M.bright);
+       blade.rotation.y=k*(Math.PI*2/3);
+      }
+    }
+   }
+  }
   caption(g,FACILITY_LABELS[id],id==='manure'?'安全圍欄區｜不可下池':'依真實牧場配置重建',0,3.05,-9.64,5.0);
   return g;
  }
