@@ -75,9 +75,9 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
   box(tank,x,.46,-1.92,.28,.52,.30,C.dark);
  }
  // Sight glass, hinged sanitary inspection hatch and cleaning circuit.
- const lid=cyl(tank,-3.62,2.88,-2.3,.44,.45,.12,C.chrome,18);
+ cyl(tank,-3.62,2.88,-2.3,.44,.45,.12,C.chrome,18);
  box(tank,-3.63,3.04,-2.3,.65,.06,.10,C.dark);
- const pipeTop=pipe(storage,[[-3.63,3.0,-2.3],[-3.6,3.34,-2.3],[-3.2,3.39,-2.3],[-3.2,3.14,-1.1]],.08,C.pipe);
+ pipe(storage,[[-3.63,3.0,-2.3],[-3.6,3.34,-2.3],[-3.2,3.39,-2.3],[-3.2,3.14,-1.1]],.08,C.pipe);
  pipe(storage,[[-1.66,1.36,-2.3],[-1.28,1.36,-2.3],[-1.28,2.65,-2.3],[-.95,2.65,-2.3]],.065,C.chrome);
  const outlet=cyl(storage,-1.44,.70,-2.35,.15,.15,.22,C.dark,12);outlet.rotation.z=Math.PI/2;
  for(let i=0;i<7;i++)box(tank,-4.75+i*.30,1.6,-.95,.055,.045,.06,i%2?C.steel:C.chrome);
@@ -86,8 +86,8 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
  const display=group(storage,'Bulk tank sample readout');display.position.set(1.55,0,-3.0);
  box(display,0,1.7,0,.7,1.4,.58,C.dark);
  box(display,0,2.03,.315,.61,.38,.045,C.pipe);
- const temp=sign(display,'3.8°C','模擬溫度｜非即時',0,2.04,.344,.70);
- box(display,-.20,1.57,.315,.12,.07,.04,C.green);
+ sign(display,'3.8°C','模擬溫度｜非即時',0,2.04,.344,.70);
+ const tempLamp=box(display,-.20,1.57,.315,.12,.07,.04,C.green);
  box(display,.06,1.57,.315,.12,.07,.04,C.yellow);
  // Maintenance/refrigeration compressor on right side.
  const chiller=group(storage,'Milk refrigeration unit');chiller.position.set(3.55,0,-3.7);
@@ -177,7 +177,7 @@ export function createSupportRooms({THREE,scene,mobile=false}) {
    const next=Math.floor(time*1.5);
    if(next!==blink){
     blink=next;
-    display.children[2]?.material&&(display.children[2].material=next%2?glow:off);
+    tempLamp.material=next%2?glow:off;
    }
  }
  const interactions={
