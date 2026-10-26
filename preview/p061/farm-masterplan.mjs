@@ -19,7 +19,7 @@ export const ZONES=Object.freeze([
  {id:'yard',name:'牧場中庭／公共道路',icon:'🗺',x:0,z:31,type:'yard',side:0},
 ]);
 export const AREA_IDS=Object.freeze(['farm',...ZONES.filter(v=>!['yard','loading'].includes(v.id)).map(v=>v.id)]);
-export const SKELETON_ZONES=Object.freeze(ZONES.filter(v=>!v.built&&v.id!=='yard').map(v=>v.id));
+export const SKELETON_ZONES=Object.freeze(ZONES.filter(v=>!v.built&&!['yard','loading'].includes(v.id)).map(v=>v.id));
 export function findZone(id){return ZONES.find(z=>z.id===id)||null}
 export function areaName(id){return id==='farm'?'牧場總覽':findZone(id)?.name||'未知區域'}
 export function createMasterplan({THREE,scene,mobile=false}){
