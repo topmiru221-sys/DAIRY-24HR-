@@ -48,7 +48,7 @@ function run(mobile){
    assert(behavior.has(required),'mixed natural herd behaviors: '+required);
  assert(search(room,'OUTDOOR_EXERCISE_YARD'),'yard connected to barn');
  assert(search(room,'High open-sided roof'),'ventilated structure');
- assert(search(room,'Scraper'),'mechanical scrapers installed');
+ assert(search(room,'manure scraper'),'mechanical scrapers installed');
  assert(search(room,'Cow back number 1201'),'cow back ID texture');
  assert(search(room,'Rumination and activity sensor'),'neck health sensor');
  assert(search(room,'Intermittent cow-only soaking droplets'),'feed-front nozzles');
