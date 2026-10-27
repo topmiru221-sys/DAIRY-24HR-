@@ -18,7 +18,8 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
   black:color(0x252c2b),white:color(0xf2f0e8),patch:color(0x282c2c),nose:color(0xdab2ab),
   hoof:color(0x44433f),sensor:color(0x236563),indicator:new THREE.MeshBasicMaterial({color:0x76e3a4}),
   straw:color(0xc3ad7d),feed:color(0x837951),blue:color(0x527f90),water:color(0x508ea6,.1,.32),
-  warning:color(0xe8c76b),drain:color(0x4f605e),shade:color(0xb4c4b4),wood:color(0x9c815d)
+  warning:color(0xe8c76b),drain:color(0x4f605e),shade:color(0xb4c4b4),wood:color(0x9c815d),
+  roof:new THREE.MeshBasicMaterial({color:0xe3eeee,transparent:true,opacity:.15,side:THREE.DoubleSide,depthWrite:false})
  };
  const boxGeo=new THREE.BoxGeometry(1,1,1);
  const sphereGeo=new THREE.SphereGeometry(1,mobile?9:15,mobile?7:10);
@@ -159,6 +160,13 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
      }
      fans.push(rotor);
    }
+ }
+ // Open-sided high pitched roof is translucent for the isometric camera,
+ // so the cows, back numbers and roof fan banks remain visible from above.
+ for(const side of [-1,1]){
+   const panel=box(roof,side*11.6,6.02,-10,23.25,.065,35,C.roof,
+      'Translucent pitched roof panel');
+   panel.rotation.z=side<0?.10:-.10;panel.castShadow=false;
  }
  // Low-opacity rear/side shade panels (no solid overhead ceiling blocking camera).
  for(const x of [-23.0,23.0]){
