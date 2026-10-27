@@ -1,4 +1,4 @@
-// node preview/p065/hud-fold.test.mjs
+// node preview/p066/hud-fold.test.mjs
 // This checks the small-screen fold behavior without loading Three.js or DOM.
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -12,7 +12,7 @@ for(const id of ['infoToggle','instruction','sceneToggle','roomNav','fieldStatus
 assert.match(html,/<div id="instruction" hidden>/,'info card collapsed on launch');
 assert.match(html,/<nav id="roomNav"[^>]* hidden>/,'scene nav collapsed on launch');
 assert.match(html,/#instruction\[hidden\],#roomNav\[hidden\]\{display:none!important\}/);
-assert.match(html,/src="\.\/scene\.js\?v=p065"/);
+assert.match(html,/src="\.\/scene\.js\?v=p066"/);
 const start=scene.indexOf('function setHudPanelVisible(which,show){');
 const end=scene.indexOf('const clamp=',start);
 assert(start>=0 && end>start,'self-contained button handlers');
