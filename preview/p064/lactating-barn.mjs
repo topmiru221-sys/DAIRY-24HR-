@@ -152,7 +152,7 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
  }
  // Under-roof axial fans: all axes +Z, face vertical across the alley.
  // Separate rows and Z offsets make distinct, nonintersecting fan banks.
- const hangingX=mobile?[-18,-7,7,18]:[-19.3,-13.4,-7.1,7.1,13.4,19.3];
+ const hangingX=mobile?[-18,-7,7,18]:[-20,-16.6,-7,7,16.6,20];
  const hangingZ=[-24,-13,-2];
  for(const x of hangingX){
    for(const z of hangingZ){
