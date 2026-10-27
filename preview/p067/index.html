@@ -1,0 +1,264 @@
+<!doctype html><html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#142c37"><title>DAIRY 24HR P0.6.7｜泌乳牛舍七項進階互動</title>
+<style>
+:root{font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#f7f9f2}
+*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#152e37}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #ffd36e;outline-offset:2px}
+#view{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(6,27,37,.22),transparent 28%,transparent 77%,rgba(6,22,30,.3))}
+#hud{position:absolute;top:max(13px,env(safe-area-inset-top));left:15px;right:15px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;pointer-events:none}
+.header{padding:11px 14px 10px;border:1px solid #a9d6db66;background:#102d39dc;backdrop-filter:blur(9px);border-radius:12px;box-shadow:0 7px 24px #06172088}
+.logo{font-weight:950;letter-spacing:1.3px;line-height:1;font-size:23px}.logo em{font-style:normal;color:#ffcf66}
+.subtitle{font-size:11px;letter-spacing:2px;color:#c7d6d4;margin-top:8px}
+.clock{font-size:14px;font-weight:900;white-space:nowrap;text-align:right}.clock small{display:block;color:#c6d9d5;font-weight:500;margin-top:6px}
+#instruction{position:absolute;left:16px;top:112px;width:275px;padding:11px 13px;background:#17313ad9;border:1px solid #a4c7c36b;border-radius:10px;box-shadow:0 6px 24px #04171c66;pointer-events:none}
+#instruction h3{margin:0 0 6px;font-size:13px;color:#f8d47a}#workStatus{margin-top:8px;padding-top:6px;border-top:1px solid #acc7c45e;color:#a5e9cd;font-weight:700;font-size:11px;line-height:1.45}#instruction p{font-size:12px;line-height:1.52;color:#dce9e7;margin:0}
+#smallmenu{position:absolute;right:16px;top:106px;display:flex;gap:6px}
+#smallmenu button{min-width:42px;height:42px;border-radius:10px;background:#152e3de5;color:#fff;border:1px solid #b4d0ce7b;font-size:22px;box-shadow:0 3px 15px #00172356}
+#smallmenu button:hover{background:#315667}
+#prompt{position:absolute;bottom:93px;left:50%;transform:translateX(-50%);white-space:nowrap;border:1px solid #ffd77d;background:#233e48ed;border-radius:12px;padding:10px 15px;font-weight:850;box-shadow:0 6px 30px #071c2b6c;display:none;max-width:calc(100vw - 20px);overflow:hidden;text-overflow:ellipsis;font-size:14px}
+#toast{position:absolute;bottom:160px;left:50%;transform:translate(-50%,10px);padding:8px 13px;background:#15343bf2;color:#fff;border:1px solid #94cac0;border-radius:9px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;font-size:13px;max-width:min(90vw,550px);text-align:center;line-height:1.45}#toast.show{opacity:1;transform:translate(-50%,0)}
+#bottom{position:absolute;left:16px;bottom:max(17px,env(safe-area-inset-bottom));display:flex;align-items:end;gap:12px}
+#pad{display:grid;grid-template-columns:repeat(3,53px);grid-template-rows:repeat(3,52px);gap:4px;touch-action:none;user-select:none}
+#pad button{border:1px solid #a4c9ccbb;border-radius:9px;background:#153745df;color:#f8f9f4;font-size:23px;font-weight:850;box-shadow:0 2px 8px #00192350;touch-action:none}
+#pad button:active,#pad button.active{background:#426875}
+#pad .blank{pointer-events:none;opacity:0}
+#tips{font-size:11px;color:#edf4e1b8;line-height:1.75;text-shadow:0 1px 4px #142430;max-width:360px;margin-bottom:6px}
+#act{position:absolute;right:16px;bottom:max(25px,env(safe-area-inset-bottom));border:2px solid #ffefbe;background:#f4bb52;color:#213842;border-radius:13px;padding:14px 18px;font-weight:950;font-size:16px;box-shadow:0 5px 0 #946726,0 8px 24px #10232c73;min-width:134px}#act:disabled{opacity:.45;filter:grayscale(1)}
+#dialog{position:absolute;bottom:93px;left:50%;transform:translateX(-50%);width:min(550px,calc(100vw - 22px));background:#fff9e9;color:#213943;border-radius:15px;padding:13px 15px 14px;border:2px solid #789ca6;box-shadow:0 10px 35px #05242e92;display:none}
+#dialog .speaker{color:#22706b;font-size:12px;font-weight:900}
+#dialog p{font-size:15px;line-height:1.58;margin:7px 0 11px}
+#dialog .tools{display:flex;gap:7px;flex-wrap:wrap}
+#dialog button{border:1px solid #8ba8a5;color:#243f46;background:#fdfefa;border-radius:9px;padding:9px 12px;font-weight:750;font-size:13px;flex:1}
+#dialog button.primary{background:#f7c65d;border-color:#d0a13d}
+#start{position:absolute;inset:0;background:linear-gradient(135deg,#102b36ee,#0b1b28de);display:grid;place-items:center;padding:20px;z-index:10}
+#start .intro{max-width:470px;background:#f5f1df;color:#253a3c;padding:27px 28px;border:4px solid #f1c568;border-radius:16px;box-shadow:9px 9px 0 #071c25ad}
+#start h1{margin:0 0 6px;color:#214f56;font-size:clamp(24px,5vw,34px)}#start h1 span{color:#c47c21}
+#start .tag{font-weight:950;color:#aa772c;letter-spacing:1.4px;font-size:12px}
+#start p{line-height:1.8;font-size:14px}#start ul{font-size:13px;line-height:2;padding-left:21px}
+#start button{width:100%;padding:14px;background:#2f785f;border:0;color:#fff;font-size:16px;border-radius:9px;font-weight:900}
+#err{position:absolute;inset:0;display:none;place-items:center;background:#0f2d39;color:#fff;text-align:center;padding:25px;z-index:15}
+#err div{max-width:460px;line-height:1.7}#err a{color:#ffe3a4}
+#minibar{position:absolute;right:16px;bottom:90px;color:#e9f6eea8;font-size:10px;text-align:right;pointer-events:none;line-height:1.7}
+@media(max-width:700px){
+ #hud{left:7px;right:7px;top:max(7px,env(safe-area-inset-top));gap:5px}
+ .header{padding:8px;border-radius:8px}.logo{font-size:16px}.subtitle{font-size:8px;letter-spacing:.6px;margin-top:5px}
+ .clock{font-size:13px}.clock small{font-size:9px}
+ #instruction{left:7px;top:65px;width:min(226px,calc(100vw - 118px));padding:8px 9px}
+ #instruction h3{font-size:11px}#instruction p{font-size:10px;line-height:1.4}#workStatus{font-size:10px;margin-top:5px;padding-top:4px}
+ #smallmenu{top:66px;right:7px;display:grid;grid-template-columns:repeat(2,37px);gap:3px}
+ #smallmenu button{height:37px;min-width:37px;font-size:19px;border-radius:7px}
+ #pad{grid-template-columns:repeat(3,48px);grid-template-rows:repeat(3,47px)}
+ #bottom{left:9px;bottom:max(26px,env(safe-area-inset-bottom))}
+ #tips,#minibar{display:none}
+ #act{right:9px;bottom:max(18px,env(safe-area-inset-bottom));font-size:13px;min-width:106px;padding:12px 10px}
+ #prompt{bottom:173px;font-size:12px;padding:8px 11px}
+ #dialog{bottom:172px;padding:10px 11px}
+ #dialog p{font-size:13px}#toast{bottom:222px;font-size:11px}
+ #start .intro{padding:18px}
+}
+#debugMove{position:absolute;top:205px;right:10px;z-index:9;white-space:pre-line;font:11px/1.5 ui-monospace,monospace;background:#102b39ef;color:#e5f5f1;border:1px solid #8bbab7;padding:8px;border-radius:7px;max-width:190px;pointer-events:none}#debugMove[hidden]{display:none}
+html,body{overscroll-behavior:none}
+
+/* Full-cycle controls stay inside the small task panel, never over the moving pad. */
+#stageInfo{margin-top:8px;padding-top:7px;border-top:1px solid #b6d0c761}
+#stepName{font-weight:850;color:#fbd788;font-size:13px}
+#stepHint{color:#d5e5de;font-size:11px;line-height:1.5;margin-top:2px}
+#stepTrack{height:5px;border-radius:9px;background:#071f2780;margin:7px 0;overflow:hidden}
+#stepFill{display:block;width:0%;height:100%;background:#f1c968;transition:width .17s linear}
+#stageControls{display:flex;gap:4px;pointer-events:auto}
+#stageControls button{flex:1;min-width:0;padding:7px 2px;border:1px solid #b7d4d099;border-radius:7px;background:#23525f;color:#fff;font-size:11px;font-weight:760;touch-action:manipulation}
+#stageControls button:active{background:#477d85}
+@media(max-width:700px){
+ #instruction{max-height:255px;overflow:hidden}
+ #instruction h3{font-size:10px;margin-bottom:3px}
+ #instruction p{font-size:10px;line-height:1.35}
+ #stepName{font-size:11px}#stepHint{font-size:9px}
+ #stageControls button{padding:5px 1px;font-size:9px}
+ #stageInfo{margin-top:5px;padding-top:4px}
+ #stepTrack{margin:4px 0;height:4px}
+ #workStatus{font-size:9px;line-height:1.25}
+}
+
+#roomNav{position:absolute;right:16px;top:158px;z-index:8;display:flex;flex-direction:column;width:119px;gap:5px}
+#roomNav button{padding:9px 4px;border-radius:9px;border:1px solid #99c1beb5;background:#153e4beb;color:#f8f8f1;font-weight:800;font-size:12px;box-shadow:0 4px 15px #061b2260;touch-action:manipulation}
+#roomNav button.chosen{background:#f0ca75;color:#253f46;border-color:#ffebc6}
+#roomNav span{color:#d5e9e5e3;font-size:10px;text-align:center;pointer-events:none}
+@media(max-width:700px){#roomNav{top:228px;right:7px;width:94px;gap:3px}#roomNav button{padding:7px 3px;min-height:34px;font-size:10px;border-radius:7px}#roomNav span{font-size:9px}}
+
+/* Optional quest journal. Hidden until clicked, so mobile steering stays clear. */
+#shiftOpen{border-color:#ecd08b!important;background:#214b53!important}
+#shiftOpen b{display:inline-block;font-size:10px;color:#f7db99}
+#shiftOpen[aria-expanded="true"]{background:#b88943!important}
+#shiftPanel[hidden]{display:none!important}
+#shiftPanel{position:absolute;z-index:12;top:124px;right:146px;width:min(340px,calc(100vw - 28px));max-height:calc(100dvh - 205px);overflow:auto;background:#f6f4e9;color:#253d42;border:2px solid #d6bc77;border-radius:14px;box-shadow:0 14px 38px #021821aa;padding:14px}
+#shiftPanel h3{font-size:16px;margin:0;color:#224b54}
+#shiftPanel .shift-intro{font-size:12px;line-height:1.55;color:#5a716d;margin:4px 0 10px}
+#shiftPanel .shift-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#shiftClose{font-size:20px;border:0;border-radius:7px;background:#e2e4db;padding:4px 8px;color:#29444d}
+#shiftPriorities{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0 11px}
+#shiftPriorities button{padding:6px 7px;border:1px solid #b1c4c0;border-radius:7px;background:#fffaf0;color:#254850;font-size:11px;flex:1;min-width:85px}
+#shiftPriorities button.selected{background:#276572;color:#fff;border-color:#276572}
+#shiftTaskList{display:grid;gap:5px}
+.shift-task{padding:8px 9px;background:#ecede7;border-radius:8px;border-left:4px solid #aab3af}
+.shift-task.finished{background:#dfefe5;border-left-color:#348868}
+.shift-task strong{font-size:12px}.shift-task p{margin:4px 0 0;font-size:11px;line-height:1.5;color:#5a706d}
+#shiftSummary{font-size:11px;line-height:1.55;color:#47645d;margin:10px 0}
+#shiftNavigate{width:100%;padding:10px;background:#d9a552;color:#183944;border:0;border-radius:8px;font-weight:850}
+#shiftNavigate:disabled{opacity:.6}
+@media(max-width:700px){
+ #shiftPanel{top:max(66px,env(safe-area-inset-top));right:7px;width:min(340px,calc(100vw - 14px));max-height:calc(100dvh - 305px);padding:10px}
+ #shiftPanel h3{font-size:14px}.shift-task{padding:6px 8px}.shift-task p{font-size:10px;margin-top:2px}
+ #shiftPriorities button{font-size:10px;padding:5px 4px}
+ #shiftOpen b{font-size:9px}
+}
+
+#lactatingPanel{margin-top:7px;padding-top:7px;border-top:1px solid #ffffff44}
+#lactatingPanel .barn-shortcuts{display:flex;gap:5px;margin-top:5px}
+#lactatingPanel button{flex:1;min-width:0;padding:6px 4px;border-radius:6px;border:1px solid #bbd9d1;background:#376d75;color:#fff7d9;font-size:11px;font-weight:750;touch-action:manipulation}
+#lactatingPanel button:active{background:#d9b86e;color:#1a3339}
+#fieldLocation{color:#ecdfb3;font-size:10px}
+#yardGateState{color:#e5ddc2;font-size:10px;padding:4px 1px}
+#lactatingGateToggle{width:100%;margin-top:5px;background:#476a62!important;border-color:#e6d294!important}
+#lactatingGateToggle.closed{background:#b58441!important;color:#142e33!important}
+@media(max-width:700px){#lactatingPanel{margin-top:4px;padding-top:4px}#lactatingPanel button{font-size:9px;padding:5px 2px}}
+#feedRobotPanel{border-top:1px solid #ffffff4b;margin-top:7px;padding-top:7px;line-height:1.45}
+#feedRobotStatus{font-size:11px;color:#e8d9b3;max-width:250px}
+#feedRobotPanel .feed-buttons{display:flex;gap:5px;margin-top:6px}
+#feedRobotPanel button{flex:1;border-radius:6px;background:#326c67;color:#fff;border:1px solid #c3d7d2;font-size:10px;padding:7px 4px;touch-action:manipulation}
+#feedRobotPanel p{font-size:10px;color:#d0d9cd;margin:5px 0 0}
+@media(max-width:700px){#feedRobotPanel button{padding:5px 2px;font-size:9px}#feedRobotStatus{font-size:10px}}
+#barnAdvancePanel{border-top:1px solid #ffffff48;margin-top:8px;padding-top:7px;font-size:10px;color:#f3e4bf}
+#barnAdvancePanel .barn-ops-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin:6px 0}
+#barnAdvancePanel button{background:#375f69;color:#fff9e9;border:1px solid #a0c4b8;border-radius:6px;padding:6px 3px;font-size:10px;min-height:28px;touch-action:manipulation}
+#barnSensorStatus{color:#d6f3dc;margin-top:4px;line-height:1.5}
+#barnAdvancePanel .barn-disclaimer{color:#e4cdb2;line-height:1.5;margin:5px 0 0}
+@media(max-width:700px){#barnAdvancePanel button{font-size:9px;padding:5px 2px}#barnAdvancePanel{font-size:9px}}
+#fieldStatus{margin-top:5px;padding:5px 7px;background:#214e53d4;border-radius:7px;color:#e7f6e9;font-size:11px;line-height:1.45}
+#fieldStatus strong{color:#ffe1a0}
+@media(max-width:700px){#fieldStatus{font-size:9px;padding:4px 6px;margin-top:3px}}
+#mapOverlay[hidden]{display:none!important}
+#mapOverlay{position:absolute;z-index:12;top:max(20px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);width:min(680px,calc(100vw - 20px));max-height:calc(100dvh - 42px);overflow:auto;background:#f1f2e9;color:#29434a;border:3px solid #cea76c;border-radius:14px;padding:12px;box-shadow:0 18px 45px #031d26c0}
+#mapOverlay header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#mapOverlay h3{font-size:16px;margin:0}#mapOverlay header button{border:0;border-radius:7px;padding:6px 11px;background:#e0e4dd;color:#29434a;font-size:18px}
+#mapOverlay p{font-size:11px;line-height:1.5;margin:6px 0}
+#mapBoard{position:relative;height:235px;border:2px solid #8aab9e;border-radius:9px;background:#99b993;overflow:hidden}
+#mapBoard:before{content:"";position:absolute;left:47%;width:6%;top:0;bottom:0;background:#899b97}
+#mapBoard:after{content:"";position:absolute;left:3%;right:3%;top:15%;height:4px;background:#bdc8be;box-shadow:0 55px #bdc8be,0 102px #bdc8be,0 148px #bdc8be,0 190px #bdc8be}
+.map-dot{position:absolute;z-index:2;transform:translate(-50%,-50%);width:31px;height:31px;border:2px solid #6d9688;border-radius:8px;background:#e0eade;display:grid;place-items:center;font-size:16px}
+.map-dot.finished{background:#ecd58f;border-color:#966a35}
+#mapDirectory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;margin-top:9px}
+.map-list-item{border:1px solid #b3c6b8;border-radius:7px;text-align:left;background:#fffdf2;color:#23424b;font-size:11px;padding:8px 6px;font-weight:730}
+#mapFarm{width:100%;margin-top:9px;padding:10px;background:#266d65;color:white;border:0;border-radius:8px;font-weight:850}
+@media(max-width:700px){#mapOverlay{padding:8px;top:max(5px,env(safe-area-inset-top));max-height:calc(100dvh - 15px)}#mapBoard{height:205px}.map-dot{width:27px;height:27px;font-size:13px}.map-list-item{font-size:10px;padding:6px 4px}#roomNav{top:203px}}
+
+/* P0.6.6: Collapsible left information and right navigation.
+   Never change the core virtual directional pad, camera, or action key. */
+#instruction[hidden],#roomNav[hidden]{display:none!important}
+.hud-reveal{
+ position:absolute;z-index:9;min-height:40px;min-width:74px;
+ border:1px solid #a0c9c5;background:#173c47eb;color:#fff9e8;
+ border-radius:10px;box-shadow:0 4px 13px #071d2670;
+ padding:7px 10px;font-size:12px;font-weight:800;touch-action:manipulation
+}
+.hud-reveal[aria-expanded="true"]{background:#b38743;color:#152e36;border-color:#f7dfaa}
+#infoToggle{left:16px;top:112px}
+#sceneToggle{right:16px;top:158px}
+#instruction{top:160px;max-height:calc(100dvh - 240px);overflow-y:auto;pointer-events:auto;z-index:8}
+#roomNav{top:205px;max-height:calc(100dvh - 275px);overflow-y:auto}
+@media(max-width:700px){
+ #infoToggle{left:7px;top:65px;min-height:34px;min-width:73px;padding:5px 8px;font-size:11px}
+ #sceneToggle{right:7px;top:203px;min-height:34px;min-width:78px;padding:5px 8px;font-size:11px}
+ #instruction{left:7px;top:105px;max-height:min(360px,calc(100dvh - 270px));overflow-y:auto;width:min(260px,calc(100vw - 118px))}
+ #roomNav{right:7px;top:243px;max-height:calc(100dvh - 315px);overflow-y:auto}
+}
+</style></head><body>
+<canvas id="view" aria-label="可自由走動的 3D 榨乳室、儲乳區與牧場管理室"></canvas><div id="shade"></div>
+<div id="hud"><div class="header"><div class="logo">🐄 DAIRY <em>24HR</em></div><div class="subtitle">P0.6.7 · 泌乳牛舍七項補強｜Three.js</div></div><div class="header clock"><span id="simClock">05:10</span><small>遊戲時間（加速）· 早班</small></div></div>
+<button id="infoToggle" class="hud-reveal" aria-label="顯示區域資訊" aria-controls="instruction" aria-expanded="false">ℹ️ 資訊</button>
+<div id="instruction" hidden><h3>🗺 整座牧場總覽</h3><p>泌乳牛舍現在有更多乳牛（手機24頭／桌機32頭）、兩類均朝走道縱向送風的懸吊扇與大型平板扇。牛舍和運動場有明顯分界與雙扇活動門，可開關通行。</p><div id="workStatus">牛位準備中…</div>
+ <div id="fieldStatus" style="display:none">👣 <strong id="fieldTitle">區域探索</strong>｜已查看 <strong id="fieldCount">0/3</strong><div>走近動物或設備，按 E 或互動鍵。</div>
+ <div id="lactatingPanel" style="display:none" aria-label="泌乳牛舍和戶外運動場">
+  <div id="fieldLocation">目前：運動場</div>
+  <div class="barn-shortcuts"><button id="lactatingBarnJump">🐄 牛舍</button><button id="lactatingYardJump">🌤 運動場</button></div>
+  <div id="yardGateState" role="status">活動門開放中，可穿越</div>
+  <button id="lactatingGateToggle" aria-label="開關牛舍與戶外運動場活動門" aria-pressed="true">🚪 關閉活動門</button>
+  <div id="feedRobotPanel" aria-label="TMR 自動推料機示範控制">
+    <div id="feedRobotStatus" role="status">TMR 已鋪設｜推料機：充電待機</div>
+    <div class="feed-buttons">
+      <button id="feedRobotToggle">▶ 啟動推料示範</button>
+      <button id="feedRobotDock">↩ 回充／重設</button>
+    </div>
+    <p>此版為設備示範；TMR 巡槽與推料將在正式遊戲中成為每日工作。</p>
+  </div>
+  <div id="barnAdvancePanel" aria-label="泌乳牛舍七項進階操作">
+    <div id="barnOpsStatus" role="status">進階設備初始化中…</div>
+    <div class="barn-ops-actions">
+      <button id="barnLightToggle">💡 切換照明</button>
+      <button id="barnLockToggle">🔒 示範頭鎖</button>
+      <button id="barnObstacleToggle">🚧 放置障礙</button>
+      <button id="barnRefill">🌽 補料</button>
+      <button id="barnHerdDepart">🐄 牛群前往榨乳</button>
+      <button id="barnHerdReturn">↩ 牛群返回</button>
+      <button id="barnSensorNext">📈 切換牛號</button>
+    </div>
+    <div id="barnSensorStatus" role="status">虛擬監測資料，非真實健康診斷。</div>
+    <p class="barn-disclaimer">牛群從牛舍出口銜接榨乳室場景（非全地圖連續導航）；推料機遇障採安全停車而非自動繞道；感測資料僅供遊戲展示。</p>
+  </div>
+ </div>
+ </div>
+<div id="stageInfo">
+ <div id="stepName">第1批｜牛隻進場</div>
+ <div id="stepHint">整個早場會自行演出，也可跳到下一段</div>
+ <div id="stepTrack"><span id="stepFill"></span></div>
+ <div id="stageControls">
+  <button id="cycleToggle" title="暫停或繼續自動演出">▶ 繼續</button>
+  <button id="cycleNext" title="跳到下一個作業階段">⏭ 下一段</button>
+  <button id="cycleReplay" title="從進場重新開始一批">↻ 重播</button>
+ </div>
+</div></div>
+<div id="smallmenu"><button id="turnL" title="鏡頭向左旋轉">↶</button><button id="turnR" title="鏡頭向右旋轉">↷</button><button id="resetCam" title="鏡頭回正">⌂</button><button id="debugBtn" title="查看位置診斷">🔎</button><button id="zoomIn" title="拉近鏡頭">＋</button><button id="zoomOut" title="拉遠鏡頭">－</button><button id="soundBtn" title="機械背景音效（預設關閉）" aria-label="開啟背景音效">🔇</button></div>
+<button id="sceneToggle" class="hud-reveal" aria-label="顯示場景選單" aria-controls="roomNav" aria-expanded="false">🧭 場景</button>
+<nav id="roomNav" aria-label="牧場場景切換" hidden>
+ <button id="mapOpen" aria-expanded="false" aria-controls="mapOverlay">🗺 全區地圖</button>
+ <button data-area="farm" class="chosen" aria-pressed="true">🏡 牧場總覽</button>
+ <span>牧場場景</span>
+ <button data-area="parlor" aria-pressed="false">🐄 榨乳室</button>
+ <button data-area="tank" aria-pressed="false">🥛 儲乳區</button>
+ <button data-area="office" aria-pressed="false">🗂 管理室</button>
+<button id="shiftOpen" aria-expanded="false" aria-controls="shiftPanel">📋 早班任務 <b id="shiftCount">0/4</b></button>
+</nav>
+<section id="mapOverlay" aria-label="全牧場配置圖" hidden>
+ <header><h3>🗺 DAIRY 24HR｜牧場總圖</h3><button id="mapClose" aria-label="關閉地圖">✕</button></header>
+ <p>泌乳牛舍 P0.6.6 加大：自由牛床、可走動的戶外運動場、分散活動牛群、牛背號碼／健康頸圈、風扇、頭鎖噴淋與刮糞設施。其他區域保留原版。</p>
+ <div id="mapBoard" aria-label="牧場配置示意"></div>
+ <div id="mapDirectory" aria-label="所有建築清單"></div>
+ <button id="mapFarm">🏡 返回牧場中央道路</button>
+</section>
+<section id="shiftPanel" aria-label="早班工作表" hidden>
+ <div class="shift-head"><h3>📋 早班工作表</h3><button id="shiftClose" aria-label="關閉早班工作表">✕</button></div>
+ <p class="shift-intro">美玲姐：「先四處熟悉就好，不用急著做完。」任務都可選，早場會照常進行。</p>
+ <div class="shift-intro">你想從哪個方向開始？</div>
+ <div id="shiftPriorities">
+  <button data-focus="cows" class="selected" aria-pressed="true">🐄 先看牛位</button>
+  <button data-focus="milk" aria-pressed="false">🥛 先看儲乳</button>
+  <button data-focus="records" aria-pressed="false">🗂 先看紀錄</button>
+ </div>
+ <div id="shiftTaskList"></div>
+ <p id="shiftSummary">早班任務準備中…</p>
+ <button id="shiftNavigate">📍 前往下一站</button>
+</section>
+<div id="prompt"></div><div id="toast"></div><pre id="debugMove" hidden></pre>
+<div id="bottom"><div id="pad">
+<span class="blank"></span><button data-k="up" aria-label="向前">▲</button><span class="blank"></span>
+<button data-k="left" aria-label="向左">◀</button><button data-k="interact" aria-label="互動">●</button><button data-k="right" aria-label="向右">▶</button>
+<span class="blank"></span><button data-k="down" aria-label="向後">▼</button><span class="blank"></span>
+</div><div id="tips">WASD／方向鍵：連續移動　E：互動<br>拖曳畫面：旋轉視角　滑鼠滾輪：縮放<br>點地面：走過去　手機可長按方向鍵</div></div>
+<button id="act" disabled>靠近再互動</button><div id="minibar">完整早場流程 · 自由探索</div>
+<div id="dialog"><div class="speaker" id="who"></div><p id="line"></p><div class="tools" id="dialogActions"></div></div>
+<div id="start"><div class="intro"><div class="tag">可玩技術切片 · P0.6.7</div><h1>早場，<span>開始了。</span></h1><p>泌乳牛舍七項補強：LED 晝夜照明、牛群動線、推料遇障停車、示範頭鎖、牛群動作、TMR 消耗補料及模擬監測。原有兩側飼槽加入 TMR 混合日糧，並讓自動推料機沿飼槽巡航；每頭乳牛有明確的發情偵測頸圈。左右資訊面板繼續預設收合。泌乳牛舍的乳牛數量維持不變，分散在牛床、採食線與戶外運動場。屋架懸吊扇與大型方形平板扇已重新校正方向，兩種風扇沿牛舍走道縱向送風，不再互相垂直或交錯；中央雙扇活動門仍可開關。</p><ul><li>走進去看看榨乳室與荷斯登牛</li><li>鏡頭可以水平轉一整圈，會跟著你走</li><li>看一整批牛依序進場、前處理、接杯、榨乳、脫杯、離場與清洗</li><li>使用 🗺 全區地圖或牧場中央道路，查看完整設施與建築入口</li><li>新增可見的 TMR 混合日糧、會轉彎回充的自動推料機，以及牛隻的發情／活動監測頸圈</li><li>泌乳牛舍24／32頭牛、屋架扇與平板扇都沿走道排列送風，保留戶外活動門</li><li>其他十個區域各有 3 個可查看的物件，泌乳牛舍擴充為 16 個，沒有強制對話或疾病題目</li><li>到新區域也能走動、靠近設備按 E 查看</li><li>按 📋 早班任務，完成從榨乳室到管理室的簡短日常故事</li><li>你可選擇今天先看牛、先看儲乳或先看交班紀錄</li><li>小面板可暫停或跳到下一段，不影響自由探索</li><li>右上角 🔇 可以自行開啟輕微機械背景音</li></ul><button id="begin">穿上雨鞋，開始走走 →</button><p style="color:#56706b;font-size:11px;margin:12px 0 0">TMR、機器人巡航與發情監測都是示意，將在後續每日工作系統中啟用；不顯示虛構發情警報或配方數值。其他區域原樣保留。</p></div></div>
+<div id="err"><div><h2>此裝置無法啟動 3D 場景</h2><p>需要支援 WebGL 的瀏覽器與網路連線載入 Three.js。可先以 Chrome／Edge 開啟，或返回 <a href="../../">P0.4 遊戲</a>。</p></div></div>
+<script type="module" src="./scene.js?v=p067"></script>
+</body></html>
