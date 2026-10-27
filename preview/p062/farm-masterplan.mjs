@@ -91,7 +91,7 @@ export function createMasterplan({THREE,scene,mobile=false}){
  for(const zone of ZONES){
   if(zone.id==='yard'||zone.id==='loading')continue;
   const t=zone.type,x=zone.x,z=zone.z;
-  const w=t==='feed'||t==='silage'?11:12.0,d=t==='storage'?9:10.8;
+  const w=zone.id==='lactating'?17.2:(t==='feed'||t==='silage'?11:12.0),d=zone.id==='lactating'?12.0:(t==='storage'?9:10.8);
   box(root,x,.18,z,w,.34,d,C.siding);
   // Open-sided hall with corner poles, concrete ridge and named fascia.
   const facade=t==='calf'?C.yellow:t==='maternity'?C.clay:
@@ -104,6 +104,27 @@ export function createMasterplan({THREE,scene,mobile=false}){
   for(const dz of [-d/2+.34,d/2-.34])box(root,x,2.94,z+dz,w,.15,.15,facade);
   box(root,x,3.12,z-.2,w*.72,.16,.35,facade);
   label(root,zone.name,zone.built?'原有精修｜可進入':'真實配置｜可進入',x,3.72,z,w*.72,0);
+  // Enlarged lactating-barn facade with attached outdoor paddock.
+  // This outdoor masterplan view is diagrammatic; its fully explorable
+  // barn-and-yard scene has a larger independent playable footprint.
+  if(zone.id==='lactating'){
+   const bx=x-12.15;
+   box(root,bx,.11,z,6.6,.12,11.6,C.field);
+   box(root,bx,.17,z,5.9,.05,10.6,C.siding);
+   for(const fx of [bx-3.25,bx+3.25])for(const fz of [z-5.8,z+5.8])
+     box(root,fx,1.13,fz,.11,2.03,.11,C.wood);
+   for(const yy of [.60,1.28]){
+     box(root,bx-3.25,yy,z,.09,.09,11.55,C.wood);
+     for(const zz of [z-5.8,z+5.8])box(root,bx,yy,zz,6.5,.09,.09,C.wood);
+   }
+   for(const px of [bx-1.72,bx+.9])for(const pz of [z-3.2,z-1.6]){
+      box(root,px,1.3,pz,.12,2.45,.12,C.steel);
+   }
+   box(root,bx-.45,2.48,z-2.4,5.2,.14,3.6,C.straw);
+   const drink=cy(root,bx+1.4,.46,z+3.0,.60,.62,.48,C.water,12);
+   drink.name='Lactating outdoor exercise yard water';
+   label(root,'戶外運動場','遮蔭・活動・飲水',bx,3.17,z+2.5,3.6,0);
+  }
   // Entrance markers are physically anchored on the road-facing side;
   // do not require an imagined mouse-clickable map projection.
   const postX=zone.side<0?zone.x+w/2+.9:zone.x-w/2-.9;
