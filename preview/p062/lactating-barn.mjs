@@ -145,7 +145,7 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
    }
    box(roof,0,6.70,z,3.5,.15,.25,C.steel,'Open roof ridge beam');
  }
- for(const x of [-20,-13.6,-7,7,13.6,20]){
+ for(const x of (mobile?[-20,-7,7,20]:[-20,-13.6,-7,7,13.6,20])){
    for(const z of [-21,-8,3]){
      const fan=group(roof,'Suspended fan blowing into occupied zone',x,4.75,z);
      cylinder(fan,0,.30,0,.15,.62,C.steel);
@@ -209,7 +209,7 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
   {id:1201,x:-18.0,z:-19.8,kind:'lying-stall',yaw:Math.PI},
   {id:1202,x:19.2,z:-14.0,kind:'lying-stall',yaw:0},
   {id:1203,x:-19.1,z:-4.1,kind:'lying-stall',yaw:Math.PI},
-  {id:1204,x:19.5,z:1.2,kind:'standing-stall',yaw:0},
+  {id:1204,x:15.45,z:1.2,kind:'barn-walking',yaw:Math.PI/2},
   {id:1205,x:-8.1,z:-19.4,kind:'feeding',yaw:0},
   {id:1206,x:8.1,z:-11.1,kind:'feeding',yaw:Math.PI},
   {id:1207,x:-8.3,z:-2.3,kind:'feeding',yaw:0},
@@ -225,7 +225,7 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
  ];
  const shown=mobile?herd.filter(c=>![1203,1208,1214,1215].includes(c.id)):herd;
  function cow(data){
-  const lying=data.kind.includes('lying'),walking=data.kind==='yard-walking';
+  const lying=data.kind.includes('lying'),walking=['yard-walking','barn-walking'].includes(data.kind);
   const parent=data.z>7.9?yard:barn;
   const root=group(parent,'Cow #'+data.id+' '+data.kind,data.x,.12,data.z);
   root.rotation.y=data.yaw;
@@ -277,11 +277,11 @@ export function buildExpandedLactatingBarn({THREE,master,mobile=false,hot,regist
       const q=t*.20+data.id*2.5;
       // Movement stays in a dedicated roaming corridor in the yard.
       // Never pass through feed lanes, headlocks, stalls or scraper blades.
-      const c= Math.sin(q);
-      const z=data.z+2.25*c;
-      const dzdt=.45*Math.cos(q);
-      const x=data.x+1.18*Math.sin(q*.66);
-      const dxdt=.1558*Math.cos(q*.66);
+      const c=Math.sin(q),outside=data.kind==='yard-walking';
+      const z=data.z+(outside?2.25:2.0)*c;
+      const dzdt=(outside?.45:.40)*Math.cos(q);
+      const x=data.x+(outside?1.18:.25)*Math.sin(q*.66);
+      const dxdt=(outside?.1558:.033)*Math.cos(q*.66);
       root.position.set(x,.12,z);
       const angle=Math.atan2(-dzdt,dxdt);
       const delta=Math.atan2(Math.sin(angle-root.rotation.y),Math.cos(angle-root.rotation.y));
