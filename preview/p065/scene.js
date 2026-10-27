@@ -21,8 +21,16 @@ function setHudPanelVisible(which,show){
  button.setAttribute('aria-label',(show?'收合':'顯示')+(info?'區域資訊':'場景選單'));
  button.textContent=info?(show?'✕ 收起資訊':'ℹ️ 資訊'):(show?'✕ 收起場景':'🧭 場景');
 }
-$('infoToggle').onclick=()=>setHudPanelVisible('info',$('instruction').hidden);
-$('sceneToggle').onclick=()=>setHudPanelVisible('scene',$('roomNav').hidden);
+$('infoToggle').onclick=()=>{
+ const show=$('instruction').hidden;
+ if(show)setHudPanelVisible('scene',false);
+ setHudPanelVisible('info',show);
+};
+$('sceneToggle').onclick=()=>{
+ const show=$('roomNav').hidden;
+ if(show)setHudPanelVisible('info',false);
+ setHudPanelVisible('scene',show);
+};
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 let THREE;
 for(const url of ['https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js','https://unpkg.com/three@0.160.1/build/three.module.js']){
