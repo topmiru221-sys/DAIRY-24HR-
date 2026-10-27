@@ -653,7 +653,7 @@ addEventListener('resize',resize);
 resize();
 $('turnL').onclick=()=>orbit.yaw-=Math.PI/5;
 $('turnR').onclick=()=>orbit.yaw+=Math.PI/5;
-$('zoomIn').onclick=()=>orbit.dist=clamp(orbit.dist-1.5,6.7,19);
+$('zoomIn').onclick=()=>orbit.dist=clamp(orbit.dist-1.5,6.7,activeArea==='lactating'?36:19);
 $('zoomOut').onclick=()=>orbit.dist=clamp(orbit.dist+1.5,6.7,activeArea==='lactating'?36:19);
 const ray=new THREE.Raycaster(),screen=new THREE.Vector2(),floorPlane=new THREE.Plane(new THREE.Vector3(0,1,0),-.05);
 canvas.addEventListener('pointerdown',e=>{
@@ -671,7 +671,7 @@ canvas.addEventListener('pointermove',e=>{
   if(dragging){orbit.yaw-=dx*.009;orbit.pitch=clamp(orbit.pitch+dy*.005,.48,1.18)}
  }else if(holdMap.size===2){
   const a=[...holdMap.values()],distance=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);
-  if(pinchDistance)orbit.dist=clamp(orbit.dist*pinchDistance/distance,6.7,19);
+  if(pinchDistance)orbit.dist=clamp(orbit.dist*pinchDistance/distance,6.7,activeArea==='lactating'?36:19);
   pinchDistance=distance
  }
 });
