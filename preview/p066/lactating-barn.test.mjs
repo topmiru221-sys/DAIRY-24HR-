@@ -33,9 +33,9 @@ function run(mobile){
  assert.equal(FACILITY_IDS.length,11);
  assert.equal(ZONES.length,16);
  assert.equal(master.entries.length,14);
- assert.equal(rebuilt.counts.lactating,7);
+ assert.equal(rebuilt.counts.lactating,10);
  for(const zone of FACILITY_IDS.filter(v=>v!=='lactating'))assert.equal(rebuilt.counts[zone],3);
- assert.equal(rebuilt.interactables.length,37);
+ assert.equal(rebuilt.interactables.length,40);
  assert.equal(enriched.cowInfo.length,mobile?24:32);
  assert.equal(enriched.assetCounts.cows,mobile?24:32);
  assert.equal(enriched.assetCounts.fans,mobile?12:18);
@@ -58,8 +58,16 @@ function run(mobile){
  assert.equal(search(room,'LARGE FLAT PANEL FAN parallel to cow walkway').rotation.y,0);
 
  assert.equal(enriched.assetCounts.scrapers,2);
+ assert.equal(enriched.assetCounts.estrusSensors,enriched.cowInfo.length);
+ assert(enriched.feedPusher.assets.twoFeedLanes);
+ assert.equal(enriched.feedPusher.status.mode,'docked');
+ const nearRobot=rebuilt.interactables.find(c=>c.id==='lactating-pusher');
+ const nearTMR=rebuilt.interactables.find(c=>c.id==='lactating-tmr');
+ const nearEstrus=rebuilt.interactables.find(c=>c.id==='lactating-estrus');
+ assert(nearRobot&&nearTMR&&nearEstrus);
+
  assert.equal(enriched.assetCounts.sprinklerNozzles,10);
- assert(enriched.cowInfo.every(c=>c.monitor&&c.number));
+ assert(enriched.cowInfo.every(c=>c.monitor&&c.estrusMonitor&&c.number));
  assert.equal(new Set(enriched.cowInfo.map(c=>c.id)).size,enriched.cowInfo.length);
  const cows=enriched.cowInfo.map(c=>c.base);
  for(let i=0;i<cows.length;i++)for(let j=i+1;j<cows.length;j++){
