@@ -1,0 +1,40 @@
+// Run: node preview/p058/shift-story.test.mjs
+import assert from 'node:assert/strict';
+import {createMorningStory,MORNING_TASKS,PRIORITIES} from './shift-story.mjs';
+assert.equal(MORNING_TASKS.length,4);
+assert.equal(PRIORITIES.length,3);
+for(let variant=0;variant<3;variant++){
+ const story=createMorningStory({variant});
+ const initial=story.snapshot();
+ assert.equal(initial.doneCount,0);
+ assert.equal(initial.clock,'05:10');
+ assert.equal(story.enterArea('parlor'),null);
+ assert.equal(story.observe('mei','parlor').changed,false,'NPCs still chat before tasks complete');
+ assert.equal(story.observe('tools','office').changed,false,'wrong room never counts');
+ story.choosePriority('milk');
+ assert.equal(story.snapshot().focus,'milk');
+ assert.equal(story.observe('tools','parlor').taskId,'prepare');
+ assert.equal(story.observe('tools','parlor').changed,false,'no repeated credit');
+ story.enterArea('tank');
+ const notice=story.enterArea('tank');assert.equal(notice,null,'first-entry notice only once');
+ assert.equal(story.observe('milk-temp','tank').taskId,'cooling');
+ story.enterArea('office');
+ assert.equal(story.observe('office-desk','office').taskId,'handover');
+ assert.equal(story.snapshot().doneCount,3);
+ story.enterArea('parlor');
+ const finish=story.observe('mei','parlor');
+ assert.equal(finish.taskId,'report');
+ assert.equal(finish.completed,true);
+ assert.match(finish.line,/儲乳區/,'choice affects completion conversation');
+ assert.equal(story.snapshot().doneCount,4);
+ assert.equal(story.snapshot().next,null);
+ assert.equal(story.observe('mei','parlor').changed,false);
+ for(let i=0;i<1150;i++)story.update(.1);
+ assert.notEqual(story.snapshot().clock,'05:10');
+ assert.equal(story.update(Number.NaN),null);
+}
+const other=createMorningStory({variant:1});
+other.enterArea('office');
+assert.equal(other.observe('office-desk','office').changed,true,'tasks can be visited out of order');
+assert.equal(other.observe('mei','parlor').changed,false,'handover not completed early');
+console.log('PASS: independent tasks, three rooms, order-free visits, no blocked NPCs, route choices, clock, ending');
