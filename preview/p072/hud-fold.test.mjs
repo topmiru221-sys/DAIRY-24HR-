@@ -12,7 +12,7 @@ for(const id of ['infoToggle','instruction','sceneToggle','roomNav','fieldStatus
 assert.match(html,/<div id="instruction" hidden>/,'info card collapsed on launch');
 assert.match(html,/<nav id="roomNav"[^>]* hidden>/,'scene nav collapsed on launch');
 assert.match(html,/#instruction\[hidden\],#roomNav\[hidden\]\{display:none!important\}/);
-assert.match(html,/src="\.\/scene\.js\?v=p072"/);
+assert.match(html,/src="\.\/scene\.js\?v=p072-2"/);
 const start=scene.indexOf('function setHudPanelVisible(which,show){');
 const end=scene.indexOf('const clamp=',start);
 assert(start>=0 && end>start,'self-contained button handlers');

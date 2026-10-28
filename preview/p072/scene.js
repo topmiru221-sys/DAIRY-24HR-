@@ -6,7 +6,7 @@ import {createMilkingCycle} from './cycle.mjs';
 import {createMilkingRoomAssets} from './room-assets.mjs';
 import {createSupportRooms} from './support-rooms.mjs';
 import {createMorningStory,PRIORITIES} from './shift-story.mjs';
-import {ZONES,AREA_IDS,SKELETON_ZONES,areaName,createMasterplan} from './farm-masterplan.mjs';
+import {ZONES,AREA_IDS,SKELETON_ZONES,areaName,createMasterplan} from './farm-masterplan.mjs?v=p072-2';
 import {FACILITY_LABELS,rebuildDairyFacilities} from './realistic-facilities.mjs';
 // Original low-poly scene; does not depend on Fab24hr source or DairyLife 360.
 const $=id=>document.getElementById(id);
