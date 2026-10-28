@@ -14,6 +14,7 @@
 ## 網站
 
 - 正式試玩入口：https://topmiru221-sys.github.io/DAIRY-24HR-/
+- **P0.7.3 獨立新版（左側主牛舍無縫走廊試驗）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p073/?v=p073
 - **P0.7.2 獨立新版（台灣狹長型牧場配置骨架）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p072/?v=p072
 - **P0.7.1 獨立新版（屋頂向下送風＋牛位避讓）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p071/?v=p071
 - **P0.7.0 獨立新版（轉群牛舍風扇統一＋欄舍遮擋修正）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p070/?v=p070
