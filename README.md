@@ -14,6 +14,7 @@
 ## 網站
 
 - 正式試玩入口：https://topmiru221-sys.github.io/DAIRY-24HR-/
+- **P0.7.1 獨立新版（屋頂向下送風＋牛位避讓）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p071/?v=p071
 - **P0.7.0 獨立新版（轉群牛舍風扇統一＋欄舍遮擋修正）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p070/?v=p070
 - **P0.6.9 獨立新版（加大乾乳／待產牛舍＋風扇與用品精修）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p069/?v=p069
 - **P0.6.8 獨立新版（乾乳牛舍＋Close-up 待產舍精修）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p068/?v=p068
