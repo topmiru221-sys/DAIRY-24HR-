@@ -460,9 +460,9 @@ function positionBounds(area){
  return area==='farm'?{xmin:-35,xmax:35,zmin:-37,zmax:37}:
  area==='lactating'?seamlessBounds:transitionBounds[area]||{xmin:-1.82,xmax:1.82,zmin:-9.7,zmax:9.75};
 }
-function jumpWithinLactating(where){
+function jumpWithinLactating(where,{force=false}={}){
  if(activeArea!=='lactating')return;
- if(!fieldContent.lactating.state().yardGateOpen &&
+ if(!force&&!fieldContent.lactating.state().yardGateOpen &&
    ((where==='yard') !== (player.root.position.z>=8))){
   sayToast('活動門關著。請先按「🚪 打開活動門」，才能進到另一側。');return;
  }
@@ -696,12 +696,23 @@ $('resetCam').onclick=()=>{orbit.yaw=.72;orbit.pitch=activeArea==='lactating'?.9
 let targetPoint=null,holdMap=new Map(),dragging=false,down=null,pinchDistance=0,time=0;
 // Explicit area travel retains the untouched P0.5.3 playerMove/d-pad movement.
 function setArea(area){
- if(!AREA_IDS.includes(area)||area===activeArea)return;
+ const requestedArea=area;
+ if(!AREA_IDS.includes(requestedArea))return;
+ // Dry and Close-up are no longer separate worlds. Their map/nav entries
+ // open the shared main barn at a different starting point, so the player can
+ // immediately walk in either direction without another scene load.
+ const seamlessEntry=isTransitionArea(requestedArea)?requestedArea:null;
+ area=seamlessEntry?'lactating':requestedArea;
+ if(area===activeArea){
+  if(seamlessEntry)jumpWithinLactating(seamlessEntry,{force:true});
+  return;
+ }
  activeArea=area;
  for(const o of parlorVisuals)o.visible=area==='parlor';
  support.storage.visible=area==='tank';support.office.visible=area==='office';
  master.visibleArea(area);
- player.root.position.set(0,0,area==='farm'?31.5:area==='lactating'?27:isTransitionArea(area)?12.2:7.2);vel.set(0,0);targetPoint=null;
+ const entryZ=seamlessEntry?seamlessOffsets[seamlessEntry]:area==='farm'?31.5:area==='lactating'?27:7.2;
+ player.root.position.set(0,0,entryZ);vel.set(0,0);targetPoint=null;
  lastValidPosition.copy(player.root.position);
  orbit.dist=cameraDistance(area);
  orbit.pitch=area==='lactating'?.94:isTransitionArea(area)?.88:area==='farm'?.85:.72;
@@ -737,7 +748,12 @@ function setArea(area){
  if(area==='parlor'&&barnOps.state().transfer==='parlor-ready'){
   cycle.replay();sayToast('牛群已到牛舍出口，銜接既有榨乳室動畫。');
  }
- if(area==='lactating')$('fieldLocation').textContent='目前：運動場';
+ if(area==='lactating'){
+  const entryName=seamlessEntry==='dry'?'目前：乾乳分區':seamlessEntry==='closeup'?'目前：Close-up 待產分區':'目前：運動場';
+  const entryHeading=seamlessEntry==='dry'?'🌾 乾乳分區':seamlessEntry==='closeup'?'🤰 Close-up 待產分區':'🌤 泌乳牛運動場';
+  $('fieldLocation').textContent=entryName;
+  $('instruction').querySelector('h3').textContent=entryHeading;
+ }
  if(SKELETON_ZONES.includes(area)){
    $('fieldTitle').textContent=area==='lactating'?'左側主牛舍無縫區':areaName(area);
    $('fieldCount').textContent=fieldProgress(area)+'/'+fieldTotal(area);
@@ -750,7 +766,8 @@ function setArea(area){
    btn.setAttribute('aria-pressed',String(isCurrent));
  }
  updateCycleHUD();updateNear();updateStoryHUD();
- if(!firstVisit)sayToast(area==='farm'?'回到牧場總覽了。':
+ if(seamlessEntry)sayToast((seamlessEntry==='dry'?'從乾乳區':'從 Close-up 待產區')+'進入無縫主牛舍，可沿走道前後通行。');
+ else if(!firstVisit)sayToast(area==='farm'?'回到牧場總覽了。':
   SKELETON_ZONES.includes(area)?(area==='lactating'?'左側主牛舍無縫走廊已載入，可一路走到乾乳與待產分區。':areaName(area)+(['dry','closeup'].includes(area)?' 備援獨立場景已載入。靠近設施按 E。':' 有新內容可以看囉。靠近設備按 E。')):
   area==='tank'?'儲乳區到了，看看儲乳設備吧。':
   area==='office'?'到管理室了。':'回到榨乳室。');

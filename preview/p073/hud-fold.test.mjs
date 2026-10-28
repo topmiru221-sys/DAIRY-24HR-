@@ -12,7 +12,7 @@ for(const id of ['infoToggle','instruction','sceneToggle','roomNav','fieldStatus
 assert.match(html,/<div id="instruction" hidden>/,'info card collapsed on launch');
 assert.match(html,/<nav id="roomNav"[^>]* hidden>/,'scene nav collapsed on launch');
 assert.match(html,/#instruction\[hidden\],#roomNav\[hidden\]\{display:none!important\}/);
-assert.match(html,/src="\.\/scene\.js\?v=p073-2"/);
+assert.match(html,/src="\.\/scene\.js\?v=p073-3"/);
 assert.match(html,/id="mainBarnDryJump"/);
 assert.match(html,/id="mainBarnCloseupJump"/);
 const start=scene.indexOf('function setHudPanelVisible(which,show){');
@@ -43,4 +43,6 @@ assert.equal(items.instruction.hidden,true);
 assert.match(scene,/setHudPanelVisible\('scene',false\);\s*setHudPanelVisible\('info',false\);/);
 assert.match(scene,/btn\.addEventListener\('click',\(\)=>\{[\s\S]*?setArea\(btn\.dataset\.area\);[\s\S]*?setHudPanelVisible\('scene',false\);/);
 assert.match(scene,/\$\('lactatingGateToggle'\)\.onclick/,'gate control retained');
+assert.match(scene,/const seamlessEntry=isTransitionArea\(requestedArea\)\?requestedArea:null/,'dry and close-up entrances resolve into the seamless barn');
+assert.match(scene,/entryZ=seamlessEntry\?seamlessOffsets\[seamlessEntry\]/,'each seamless entrance uses its own world spawn');
 console.log('PASS: left information and right scene nav start hidden, independently reopen, close each other, and fold after scene change');
