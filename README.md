@@ -14,6 +14,8 @@
 ## 網站
 
 - 正式試玩入口：https://topmiru221-sys.github.io/DAIRY-24HR-/
+- **P0.6.8 獨立新版（乾乳牛舍＋Close-up 待產舍精修）**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p068/?v=p068
+- P0.6.7 已驗收版：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p067/?v=p067
 - 舊版比較：https://topmiru221-sys.github.io/DAIRY-24HR-/classic.html
 
 ## 操作
