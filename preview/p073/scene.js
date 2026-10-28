@@ -855,6 +855,8 @@ function playerMove(dt){
   const z=player.root.position.z;
   const place=z>=8?'目前：運動場':z>-28?'目前：泌乳牛舍':z>-60?'目前：乾乳分區':'目前：Close-up 待產分區';
   if($('fieldLocation').textContent!==place)$('fieldLocation').textContent=place;
+  const heading=z>=8?'🌤 泌乳牛運動場':z>-28?'🐄 泌乳牛舍':z>-60?'🌾 乾乳分區':'🤰 Close-up 待產分區';
+  if($('instruction').querySelector('h3').textContent!==heading)$('instruction').querySelector('h3').textContent=heading;
  }
  if(Math.abs(oldX-player.root.position.x)<.001)vel.x=0;
  if(Math.abs(oldZ-player.root.position.z)<.001)vel.y=0;
