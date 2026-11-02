@@ -2,6 +2,8 @@
 
 **手機／桌機試玩**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/p0751/?v=p0751
 
+**統一試玩入口**：https://topmiru221-sys.github.io/DAIRY-24HR-/preview/。目前導向本版，已整併 P0.7.4 的 Fresh／獸醫無縫串接與 P0.7.5 的育成牛舍分齡動線。
+
 基底：保留 **P0.7.5** 於 `preview/p075/`，另建 `preview/p0751/`；所有已完成場景與手機操作原樣保留。
 
 ## P0.7.5.1 新增
